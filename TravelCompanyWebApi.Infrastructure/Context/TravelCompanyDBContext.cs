@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using TravelCompanyWebApi.Infrastructure.Entity;
 
 #nullable disable
@@ -96,6 +98,12 @@ namespace TravelCompanyWebApi.Infrastructure.Context
 
             modelBuilder.Entity<Pass>(entity =>
             {
+                entity.Property(e => e.FinalPrice).HasComputedColumnSql("([dbo].[computeFinalPrice]([Id],[TourId],[Count]))", false);
+
+                entity.Property(e => e.FullPrice).HasComputedColumnSql("([dbo].[computeFullPrice]([TourId],[Count]))", false);
+
+                entity.Property(e => e.TotalDiscount).HasComputedColumnSql("([dbo].[computeFullDiscount]([Id]))", false);
+
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.Passes)
                     .HasForeignKey(d => d.ClientId)
