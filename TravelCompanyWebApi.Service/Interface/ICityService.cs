@@ -10,8 +10,8 @@ namespace TravelCompanyWebApi.Service.Interface
         Task DeleteCity(int id);
         Task<IEnumerable<City>> GetCities();
         Task<City> GetCityById(int id);
-        Task<IEnumerable<City>> GetCitiesByCountryId(int countryId);
-        Task<IEnumerable<City>> GetCitiesByClimateId(int climateId);
+        IEnumerable<City> GetCitiesByCountryId(int countryId);
+        IEnumerable<City> GetCitiesByClimateId(int climateId);
         Task UpdateCity(City city);
     }
 }

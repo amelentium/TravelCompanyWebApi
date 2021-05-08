@@ -1,8 +1,7 @@
 ﻿namespace TravelCompanyWebApi.Infrastructure.DTO
 {
-    public class PassDTO
+    public class PassInputDTO
     {
-
         public int Id { get; set; }
         public int? ClientId { get; set; }
         public int? TourId { get; set; }

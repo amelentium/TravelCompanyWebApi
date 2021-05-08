@@ -27,8 +27,8 @@ namespace TravelCompanyWebApi.Mapper
             CreateMap<Hotel, HotelDTO>();
             CreateMap<HotelDTO, Hotel>();
 
-            CreateMap<Pass, PassDTO>();
-            CreateMap<PassDTO, Pass>();
+            CreateMap<Pass, PassOutputDTO>();
+            CreateMap<PassInputDTO, Pass>();
 
             CreateMap<PassDiscount, PassDiscountDTO>();
             CreateMap<PassDiscountDTO, PassDiscount>();

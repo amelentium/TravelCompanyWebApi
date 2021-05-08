@@ -10,7 +10,7 @@ namespace TravelCompanyWebApi.Service.Interface
         Task DeleteTour(int id);
         Task<IEnumerable<Tour>> GetTours();
         Task<Tour> GetTourById(int id);
-        Task<IEnumerable<Tour>> GetToursByHotelId(int hotelId);
+        IEnumerable<Tour> GetToursByHotelId(int hotelId);
         Task UpdateTour(Tour tour);
     }
 }

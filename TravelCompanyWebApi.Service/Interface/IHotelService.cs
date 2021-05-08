@@ -10,7 +10,7 @@ namespace TravelCompanyWebApi.Service.Interface
         Task DeleteHotel(int id);
         Task<IEnumerable<Hotel>> GetHotels();
         Task<Hotel> GetHotelById(int id);
-        Task<IEnumerable<Hotel>> GetHotelsByCityId(int cityId);
+        IEnumerable<Hotel> GetHotelsByCityId(int cityId);
         Task UpdateHotel(Hotel hotel);
     }
 }

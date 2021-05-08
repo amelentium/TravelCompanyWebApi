@@ -5,10 +5,15 @@ namespace TravelCompanyWebApi.Repository.UnitOfWork.Interface
 {
     public interface IUnitOfWork
     {
+        ICityRepository CityRepository { get; }
         IClientRepository ClientRepository { get; }
         IClimateRepository ClimateRepository { get; }
         ICountryRepository CountryRepository { get; }
         IDiscountRepository DiscountRepository { get; }
+        IHotelRepository HotelRepository { get; }
+        IPassDiscountRepository PassDiscountRepository { get; }
+        IPassRepository PassRepository { get; }
+        ITourRepository TourRepository { get; }
         Task Complete();
     }
 }

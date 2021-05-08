@@ -24,22 +24,34 @@ namespace TrevelCompanyWebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TravelCompanyDBContext>();
 
             #region Transients
             #region Repositories
+            services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IClimateRepository, ClimateRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<IDiscountRepository, DiscountRepository>();
+            services.AddTransient<IHotelRepository, HotelRepository>();
+            services.AddTransient<IPassDiscountRepository, PassDiscountRepository>();
+            services.AddTransient<IPassRepository, PassRepository>();
+            services.AddTransient<ITourRepository, TourRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
 
             #region Services
+            services.AddTransient<ICityService, CityService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IClimateService, ClimateService>();
+            services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IDiscountService, DiscountService>();
+            services.AddTransient<IHotelService, HotelService>();
+            services.AddTransient<IPassDiscountService, PassDiscountService>();
+            services.AddTransient<IPassService, PassService>();
+            services.AddTransient<ITourService, TourService>();
             #endregion
             #endregion
 
@@ -53,7 +65,6 @@ namespace TrevelCompanyWebApi
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

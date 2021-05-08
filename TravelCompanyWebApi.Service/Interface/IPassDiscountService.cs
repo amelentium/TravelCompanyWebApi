@@ -10,8 +10,8 @@ namespace TravelCompanyWebApi.Service.Interface
         Task DeletePassDiscount(int id);
         Task<IEnumerable<PassDiscount>> GetPassDiscounts();
         Task<PassDiscount> GetPassDiscountById(int id);
-        Task<IEnumerable<PassDiscount>> GetPassDiscountsByPassId(int passId);
-        Task<IEnumerable<PassDiscount>> GetPassDiscountsByDiscountId(int discountId);
+        IEnumerable<PassDiscount> GetPassDiscountsByPassId(int passId);
+        IEnumerable<PassDiscount> GetPassDiscountsByDiscountId(int discountId);
         Task UpdatePassDiscount(PassDiscount discount);
     }
 }

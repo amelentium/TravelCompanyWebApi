@@ -4,7 +4,7 @@
 
 namespace TravelCompanyWebApi.Infrastructure.Entity
 {
-    public partial class Hotel
+    public partial class Hotel : IEntity
     {
         public Hotel()
         {
