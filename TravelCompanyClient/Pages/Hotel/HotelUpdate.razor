@@ -1,0 +1,28 @@
+﻿@page "/hotels/edit/{hotelId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<HotelForm ButtonText="Update" hotel="@hotel"
+      OnValidSubmit="@EditHotel" />
+
+@code {
+    [Parameter] public int hotelId { get; set; }
+    HotelDTO hotel = new HotelDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        hotel = await _httpClient.GetFromJsonAsync<HotelDTO>($"https://localhost:44378/Hotels/{hotelId}");
+    }
+
+    async Task EditHotel()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {hotel.Name}'s ({hotel.Id}) Record?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Hotels/{hotelId}", hotel);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("hotels");
+        }
+    }
+}

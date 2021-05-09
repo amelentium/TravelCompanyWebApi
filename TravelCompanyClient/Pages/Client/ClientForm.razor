@@ -1,0 +1,54 @@
+﻿<EditForm Model="@client" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>First Name:</label>
+        <div>
+            <InputText @bind-Value="@client.FirstName" />
+            <ValidationMessage For="@(() => client.FirstName)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Middle Name:</label>
+        <div>
+            <InputText @bind-Value="@client.MiddleName" />
+            <ValidationMessage For="@(() => client.MiddleName)" />
+        </div>
+    </div>
+    <div class="form-group ">
+        <div>
+            <label>Last Name:</label>
+            <div>
+                <InputText @bind-Value="@client.LastName" />
+                <ValidationMessage For="@(() => client.LastName)" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group ">
+        <div>
+            <label>Address:</label>
+            <div>
+                <InputText @bind-Value="@client.Address" />
+                <ValidationMessage For="@(() => client.Address)" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group ">
+        <div>
+            <label>Phonenumber:</label>
+            <div>
+                <InputText @bind-Value="@client.PhoneNumber" />
+                <ValidationMessage For="@(() => client.PhoneNumber)" />
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/clients">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public ClientDTO client { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

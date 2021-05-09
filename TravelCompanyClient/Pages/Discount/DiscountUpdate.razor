@@ -1,0 +1,28 @@
+﻿@page "/discounts/edit/{discountId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<DiscountForm ButtonText="Update" discount="@discount"
+      OnValidSubmit="@EditDiscount" />
+
+@code {
+        [Parameter] public int discountId { get; set; }
+        DiscountDTO discount = new DiscountDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        discount = await _httpClient.GetFromJsonAsync<DiscountDTO>($"https://localhost:44378/Discounts/{discountId}");
+    }
+
+    async Task EditDiscount()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {discount.Name}'s ({discount.Id}) Record?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Discounts/{discountId}", discount);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("discounts");
+        }
+    }
+}

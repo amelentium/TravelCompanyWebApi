@@ -1,0 +1,61 @@
+﻿@page "/discounts"
+
+@inject HttpClient _httpClient
+@inject IJSRuntime js
+
+<h3>Discounts</h3>
+<div class="form-group">
+    <a class="btn btn-success" href="clients/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (discounts == null)
+{
+    <text>Loading...</text>
+}
+else if (discounts.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Value (%)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DiscountDTO discount in discounts)
+            {
+                <tr>
+                    <td>@discount.Id</td>
+                    <td>@discount.Name</td>
+                    <td>@discount.Value</td>
+                    <td>
+                        <a class="btn btn-success" href="discounts/edit/@discount.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(discount.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    DiscountDTO[] discounts { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        discounts = await _httpClient.GetFromJsonAsync<DiscountDTO[]>("https://localhost:44378/Discounts");
+    }
+    async Task Delete(int discountId)
+    {
+        var discount = discounts.First(x => x.Id == discountId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {discount.Name}'s ({discount.Id}) Record?"))
+        {
+            await _httpClient.DeleteAsync($"https://localhost:44378/Discounts/{discountId}");
+            await OnInitializedAsync();
+        }
+    }
+}

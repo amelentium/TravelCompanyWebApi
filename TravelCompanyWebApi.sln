@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi", "TrevelCompanyWebApi\TravelCompanyWebApi.csproj", "{181AB955-7982-4EA6-9636-B27DB515C162}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Infrastructure", "TravelCompanyWebApi.Infrastructure\TravelCompanyWebApi.Infrastructure.csproj", "{2C9E2C3A-A643-494E-A418-28355410CD0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.Repository", "TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj", "{553DF038-26F0-40E6-B44A-60689A9BD605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Repository", "TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj", "{553DF038-26F0-40E6-B44A-60689A9BD605}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.Mapper", "TravelCompanyWebApi.Mapper\TravelCompanyWebApi.Mapper.csproj", "{B5A8DFCD-8674-415E-8832-4473C3C257AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Mapper", "TravelCompanyWebApi.Mapper\TravelCompanyWebApi.Mapper.csproj", "{B5A8DFCD-8674-415E-8832-4473C3C257AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.Service", "TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj", "{5158F158-4906-4649-9034-6E043EC5CC5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Service", "TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj", "{5158F158-4906-4649-9034-6E043EC5CC5F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi", "TravelCompanyWebApi\TravelCompanyWebApi.csproj", "{39DEF010-0E20-4F02-929A-9E2AFE36CA50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyClient", "TravelCompanyClient\TravelCompanyClient.csproj", "{F00CDC98-21CF-478D-A452-1F36743B22DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{181AB955-7982-4EA6-9636-B27DB515C162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{181AB955-7982-4EA6-9636-B27DB515C162}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{181AB955-7982-4EA6-9636-B27DB515C162}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{181AB955-7982-4EA6-9636-B27DB515C162}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C9E2C3A-A643-494E-A418-28355410CD0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2C9E2C3A-A643-494E-A418-28355410CD0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C9E2C3A-A643-494E-A418-28355410CD0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +37,14 @@ Global
 		{5158F158-4906-4649-9034-6E043EC5CC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5158F158-4906-4649-9034-6E043EC5CC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5158F158-4906-4649-9034-6E043EC5CC5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39DEF010-0E20-4F02-929A-9E2AFE36CA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39DEF010-0E20-4F02-929A-9E2AFE36CA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39DEF010-0E20-4F02-929A-9E2AFE36CA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39DEF010-0E20-4F02-929A-9E2AFE36CA50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

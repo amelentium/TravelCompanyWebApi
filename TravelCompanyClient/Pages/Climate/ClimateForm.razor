@@ -1,0 +1,20 @@
+﻿<EditForm Model="@climate" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@climate.Name" />
+            <ValidationMessage For="@(() => climate.Name)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/climates">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public ClimateDTO climate { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

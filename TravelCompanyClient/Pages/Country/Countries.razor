@@ -1,0 +1,59 @@
+﻿@page "/countries"
+
+@inject HttpClient _httpClient
+@inject IJSRuntime js
+
+<h3>Countries</h3>
+<div class="form-group">
+    <a class="btn btn-success" href="clients/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (countries == null)
+{
+    <text>Loading...</text>
+}
+else if (countries.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CountryDTO country in countries)
+            {
+                <tr>
+                    <td>@country.Id</td>
+                    <td>@country.Name</td>
+                    <td>
+                        <a class="btn btn-success" href="countries/edit/@country.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(country.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    CountryDTO[] countries { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await _httpClient.GetFromJsonAsync<CountryDTO[]>("https://localhost:44378/Countries");
+    }
+    async Task Delete(int countryId)
+    {
+        var country = countries.First(x => x.Id == countryId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {country.Name}'s ({country.Id}) Record?"))
+        {
+            await _httpClient.DeleteAsync($"https://localhost:44378/Countries/{countryId}");
+            await OnInitializedAsync();
+        }
+    }
+}

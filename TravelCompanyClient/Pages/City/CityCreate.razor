@@ -1,0 +1,17 @@
+﻿@page "/cities/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<CityForm ButtonText="Create" city="@city"
+      OnValidSubmit="@CreateCity" />
+
+@code {
+    CityDTO city = new CityDTO();
+
+    async Task CreateCity()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Cities", city);
+        uriHelper.NavigateTo("cities");
+    }
+}

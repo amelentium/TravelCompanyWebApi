@@ -1,0 +1,30 @@
+﻿<EditForm Model="@hotel" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>City:</label>
+        <div>
+            <InputNumber @bind-Value="@hotel.CityId" />
+            <ValidationMessage For="@(() => hotel.CityId)" />
+        </div>
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@hotel.Name" />
+            <ValidationMessage For="@(() => hotel.Name)" />
+        </div>
+        <label>Stars:</label>
+        <div>
+            <InputNumber @bind-Value="@hotel.Stars" />
+            <ValidationMessage For="@(() => hotel.Stars)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/hotels">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public HotelDTO hotel { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

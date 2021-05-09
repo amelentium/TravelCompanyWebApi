@@ -1,0 +1,59 @@
+﻿@page "/climates"
+
+@inject HttpClient _httpClient
+@inject IJSRuntime js
+
+<h3>Climates</h3>
+<div class="form-group">
+    <a class="btn btn-success" href="clients/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (climates == null)
+{
+    <text>Loading...</text>
+}
+else if (climates.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ClimateDTO climate in climates)
+            {
+                <tr>
+                    <td>@climate.Id</td>
+                    <td>@climate.Name</td>
+                    <td>
+                        <a class="btn btn-success" href="climates/edit/@climate.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(climate.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    ClimateDTO[] climates { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        climates = await _httpClient.GetFromJsonAsync<ClimateDTO[]>("https://localhost:44378/Climates");
+    }
+    async Task Delete(int climateId)
+    {
+        var climate = climates.First(x => x.Id == climateId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {climate.Name}'s ({climate.Id}) Record?"))
+        {
+            await _httpClient.DeleteAsync($"https://localhost:44378/Climates/{climateId}");
+            await OnInitializedAsync();
+        }
+    }
+}

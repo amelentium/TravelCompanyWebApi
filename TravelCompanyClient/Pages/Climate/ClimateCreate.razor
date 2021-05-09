@@ -1,0 +1,17 @@
+﻿@page "/climates/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<ClimateForm ButtonText="Create" climate="@climate"
+      OnValidSubmit="@CreateClimate" />
+
+@code {
+    ClimateDTO climate = new ClimateDTO();
+
+    async Task CreateClimate()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Climates", climate);
+        uriHelper.NavigateTo("climates");
+    }
+}

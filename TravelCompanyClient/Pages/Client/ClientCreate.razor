@@ -1,0 +1,17 @@
+﻿@page "/clients/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<ClientForm ButtonText="Create" client="@client"
+      OnValidSubmit="@CreateClient" />
+
+@code {
+    ClientDTO client = new ClientDTO();
+
+    async Task CreateClient()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Clients", client);
+        uriHelper.NavigateTo("clients");
+    }
+}

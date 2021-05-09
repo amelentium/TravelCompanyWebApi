@@ -1,0 +1,20 @@
+﻿<EditForm Model="@country" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@country.Name" />
+            <ValidationMessage For="@(() => country.Name)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/countries">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public CountryDTO country { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

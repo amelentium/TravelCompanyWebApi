@@ -1,0 +1,28 @@
+﻿@page "/countries/edit/{countryId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<CountryForm ButtonText="Update" country="@country"
+      OnValidSubmit="@EditCountry" />
+
+@code {
+        [Parameter] public int countryId { get; set; }
+        CountryDTO country = new CountryDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        country = await _httpClient.GetFromJsonAsync<CountryDTO>($"https://localhost:44378/Countries/{countryId}");
+    }
+
+    async Task EditCountry()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {country.Name}'s ({country.Id}) Record?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Countries/{countryId}", country);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("countries");
+        }
+    }
+}

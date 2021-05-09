@@ -1,0 +1,17 @@
+﻿@page "/countries/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<CountryForm ButtonText="Create" country="@country"
+      OnValidSubmit="@CreateCountry" />
+
+@code {
+    CountryDTO country = new CountryDTO();
+
+    async Task CreateCountry()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Countries", country);
+        uriHelper.NavigateTo("countries");
+    }
+}

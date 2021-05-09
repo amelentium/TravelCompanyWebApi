@@ -1,0 +1,63 @@
+﻿@page "/hotels"
+
+@inject HttpClient _httpClient
+@inject IJSRuntime js
+
+<h3>Hotels</h3>
+<div class="form-group">
+    <a class="btn btn-success" href="clients/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (hotels == null)
+{
+    <text>Loading...</text>
+}
+else if (hotels.Length == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CityId</th>
+                <th>Name</th>
+                <th>Stars</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (HotelDTO hotel in hotels)
+            {
+                <tr>
+                    <td>@hotel.Id</td>
+                    <td>@hotel.CityId</td>
+                    <td>@hotel.Name</td>
+                    <td>@hotel.Stars</td>
+                    <td>
+                        <a class="btn btn-success" href="hotels/edit/@hotel.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(hotel.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    HotelDTO[] hotels { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        hotels = await _httpClient.GetFromJsonAsync<HotelDTO[]>("https://localhost:44378/Hotels");
+    }
+    async Task Delete(int hotelId)
+    {
+        var hotel = hotels.First(x => x.Id == hotelId);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {hotel.Name}'s ({hotel.Id}) Record?"))
+        {
+            await _httpClient.DeleteAsync($"https://localhost:44378/Hotels/{hotelId}");
+            await OnInitializedAsync();
+        }
+    }
+}

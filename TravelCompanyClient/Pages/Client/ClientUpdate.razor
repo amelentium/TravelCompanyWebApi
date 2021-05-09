@@ -1,0 +1,28 @@
+﻿@page "/clients/edit/{clientId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<ClientForm ButtonText="Update" client="@client"
+      OnValidSubmit="@EditClient" />
+
+@code {
+        [Parameter] public int clientId { get; set; }
+        ClientDTO client = new ClientDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        client = await _httpClient.GetFromJsonAsync<ClientDTO>($"https://localhost:44378/Clients/{clientId}");
+    }
+
+    async Task EditClient()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {client.FirstName}'s ({client.Id}) Record?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Clients/{clientId}", client);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("clients");
+        }
+    }
+}

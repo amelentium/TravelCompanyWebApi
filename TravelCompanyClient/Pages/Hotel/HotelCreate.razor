@@ -1,0 +1,17 @@
+﻿@page "/hotels/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<HotelForm ButtonText="Create" hotel="@hotel"
+      OnValidSubmit="@CreateHotel" />
+
+@code {
+    HotelDTO hotel = new HotelDTO();
+
+    async Task CreateHotel()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Hotels", hotel);
+        uriHelper.NavigateTo("hotels");
+    }
+}

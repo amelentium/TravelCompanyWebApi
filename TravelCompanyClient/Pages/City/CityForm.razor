@@ -1,0 +1,30 @@
+﻿<EditForm Model="@city" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Climate:</label>
+        <div>
+            <InputNumber @bind-Value="@city.ClimateId" />
+            <ValidationMessage For="@(() => city.ClimateId)" />
+        </div>
+        <label>Country:</label>
+        <div>
+            <InputNumber @bind-Value="@city.CountryId" />
+            <ValidationMessage For="@(() => city.CountryId)" />
+        </div>
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@city.Name" />
+            <ValidationMessage For="@(() => city.Name)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/cities">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public CityDTO city { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

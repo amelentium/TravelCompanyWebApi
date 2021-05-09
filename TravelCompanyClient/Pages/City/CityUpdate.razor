@@ -1,0 +1,28 @@
+﻿@page "/cities/edit/{cityId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<CityForm ButtonText="Update" city="@city"
+      OnValidSubmit="@EditCity" />
+
+@code {
+        [Parameter] public int cityId { get; set; }
+        CityDTO city = new CityDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44378/Cities/{cityId}");
+    }
+
+    async Task EditCity()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {city.Name}'s ({city.Id}) Record?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Cities/{cityId}", city);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("cities");
+        }
+    }
+}
