@@ -1,30 +1,55 @@
-﻿<EditForm Model="@hotel" OnValidSubmit="@OnValidSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>City:</label>
-        <div>
-            <InputNumber @bind-Value="@hotel.CityId" />
-            <ValidationMessage For="@(() => hotel.CityId)" />
+﻿@inject HttpClient _httpClient
+
+@if (cities == null)
+{
+    <text>Loading...</text>
+}
+else if (cities.Count == 0)
+{
+    <text>No avaible records found.</text>
+}
+else
+{
+    <EditForm Model="@hotel" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>City:</label>
+            <div>
+                <InputSelect @bind-Value="@hotel.CityId">
+                    <option></option>
+                    @foreach (var city in cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@hotel.Name" />
+                <ValidationMessage For="@(() => hotel.Name)" />
+            </div>
+            <label>Stars:</label>
+            <div>
+                <InputNumber @bind-Value="@hotel.Stars" />
+                <ValidationMessage For="@(() => hotel.Stars)" />
+            </div>
         </div>
-        <label>Name:</label>
-        <div>
-            <InputText @bind-Value="@hotel.Name" />
-            <ValidationMessage For="@(() => hotel.Name)" />
-        </div>
-        <label>Stars:</label>
-        <div>
-            <InputNumber @bind-Value="@hotel.Stars" />
-            <ValidationMessage For="@(() => hotel.Stars)" />
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
-    <a class="btn btn-secondary" href="/hotels">Back</a>
-</EditForm>
+        <button type="submit" class="btn btn-success">
+            @ButtonText
+        </button>
+        <a class="btn btn-secondary" href="/hotels">Back</a>
+    </EditForm>
+}
 
 @code {
     [Parameter] public HotelDTO hotel { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    
+    private List<CityDTO> cities;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        cities = await _httpClient.GetFromJsonAsync<List<CityDTO>>("https://localhost:44378/Cities");
+    }
 }

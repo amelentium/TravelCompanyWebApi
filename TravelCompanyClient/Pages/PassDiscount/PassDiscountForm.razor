@@ -1,26 +1,58 @@
-﻿<EditForm Model="@passdiscount" OnValidSubmit="@OnValidSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>Discount:</label>
-        <div>
-            <InputNumber @bind-Value="@passdiscount.DiscountId" />
-            <ValidationMessage For="@(() => passdiscount.DiscountId)" />
+﻿@inject HttpClient _httpClient
+
+@if (discounts == null || passes == null)
+{
+    <text>Loading...</text>
+}
+else if (discounts.Count == 0 || passes.Count == 0)
+{
+    <text>No avaible records found.</text>
+}
+else
+{
+    <EditForm Model="@passdiscount" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>Discount:</label>
+            <div>
+                <InputSelect @bind-Value="@passdiscount.DiscountId">
+                    <option></option>
+                    @foreach (var discount in discounts)
+                        {
+                        <option value="@discount.Id">@(discount.Value + "(%), " + discount.Name)</option>
+                        }
+                </InputSelect>
+            </div>
+            <label>Pass:</label>
+            <div>
+                <InputSelect @bind-Value="@passdiscount.PassId">
+                    <option></option>
+                    @foreach (var pass in passes)
+                        {
+                        <option value="@pass.Id">@pass.Id</option>
+                        }
+                </InputSelect>
+            </div>
         </div>
-        <label>Pass:</label>
-        <div>
-            <InputNumber @bind-Value="@passdiscount.PassId" />
-            <ValidationMessage For="@(() => passdiscount.PassId)" />
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
-    <a class="btn btn-secondary" href="/passdiscounts">Back</a>
-</EditForm>
+        <button type="submit" class="btn btn-success">
+            @ButtonText
+        </button>
+        <a class="btn btn-secondary" href="/passdiscounts">Back</a>
+    </EditForm>
+}
 
 @code {
     [Parameter] public PassDiscountDTO passdiscount { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private List<DiscountDTO> discounts;
+    private List<PassOutputDTO> passes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        discounts = await _httpClient.GetFromJsonAsync<List<DiscountDTO>>("https://localhost:44378/Discounts");
+        passes = await _httpClient.GetFromJsonAsync<List<PassOutputDTO>>("https://localhost:44378/Passes");
+    }
 }
 

@@ -1,30 +1,62 @@
-﻿<EditForm Model="@city" OnValidSubmit="@OnValidSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>Climate:</label>
-        <div>
-            <InputNumber @bind-Value="@city.ClimateId" />
-            <ValidationMessage For="@(() => city.ClimateId)" />
+﻿@inject HttpClient _httpClient
+
+@if (climates == null || countries == null)
+{
+    <text>Loading...</text>
+}
+else if (climates.Count == 0 || countries.Count == 0)
+{
+    <text>No avaible records found.</text>
+}
+else
+{
+    <EditForm Model="@city" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>Climate:</label>
+            <div>
+                <InputSelect @bind-Value="@city.ClimateId">
+                    <option></option>
+                    @foreach (var climate in climates)
+                    {
+                        <option value="@climate.Id">@climate.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <label>Country:</label>
+            <div>
+                <InputSelect @bind-Value="@city.CountryId">
+                    <option></option>
+                    @foreach (var country in countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@city.Name" />
+                <ValidationMessage For="@(() => city.Name)" />
+            </div>
         </div>
-        <label>Country:</label>
-        <div>
-            <InputNumber @bind-Value="@city.CountryId" />
-            <ValidationMessage For="@(() => city.CountryId)" />
-        </div>
-        <label>Name:</label>
-        <div>
-            <InputText @bind-Value="@city.Name" />
-            <ValidationMessage For="@(() => city.Name)" />
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
-    <a class="btn btn-secondary" href="/cities">Back</a>
-</EditForm>
+        <button type="submit" class="btn btn-success">
+            @ButtonText
+        </button>
+        <a class="btn btn-secondary" href="/cities">Back</a>
+    </EditForm>
+}
 
 @code {
     [Parameter] public CityDTO city { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private List<CountryDTO> countries;
+    private List<ClimateDTO> climates;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>("https://localhost:44378/Countries");
+        climates = await _httpClient.GetFromJsonAsync<List<ClimateDTO>>("https://localhost:44378/Climates");
+    }
 }

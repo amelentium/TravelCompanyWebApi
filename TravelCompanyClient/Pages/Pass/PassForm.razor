@@ -1,31 +1,63 @@
-﻿<EditForm Model="@pass" OnValidSubmit="@OnValidSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>Client:</label>
-        <div>
-            <InputNumber @bind-Value="@pass.ClientId" />
-            <ValidationMessage For="@(() => pass.ClientId)" />
+﻿@inject HttpClient _httpClient
+
+@if (clients == null || tours == null)
+{
+    <text>Loading...</text>
+}
+else if (clients.Count == 0 || tours.Count == 0)
+{
+    <text>No avaible records found.</text>
+}
+else
+{
+    <EditForm Model="@pass" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>Client:</label>
+            <div>
+                <InputSelect @bind-Value="@pass.ClientId">
+                    <option></option>
+                    @foreach (var client in clients)
+                        {
+                        <option value="@client.Id">@(client.FirstName + " " + client.MiddleName + " " + client.LastName)</option>
+                        }
+                </InputSelect>
+            </div>
+            <label>Tour:</label>
+            <div>
+                <InputSelect @bind-Value="@pass.TourId">
+                    <option></option>
+                    @foreach (var tour in tours)
+                        {
+                        <option value="@tour.Id">@tour.Id</option>
+                        }
+                </InputSelect>
+            </div>
+            <label>Count:</label>
+            <div>
+                <InputNumber @bind-Value="@pass.Count" />
+                <ValidationMessage For="@(() => pass.Count)" />
+            </div>
         </div>
-        <label>Tour:</label>
-        <div>
-            <InputNumber @bind-Value="@pass.TourId" />
-            <ValidationMessage For="@(() => pass.TourId)" />
-        </div>
-        <label>Count:</label>
-        <div>
-            <InputNumber @bind-Value="@pass.Count" />
-            <ValidationMessage For="@(() => pass.Count)" />
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
-    <a class="btn btn-secondary" href="/passes">Back</a>
-</EditForm>
+        <button type="submit" class="btn btn-success">
+            @ButtonText
+        </button>
+        <a class="btn btn-secondary" href="/passes">Back</a>
+    </EditForm>
+}
 
 @code {
     [Parameter] public PassInputDTO pass { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private List<ClientDTO> clients;
+    private List<TourDTO> tours;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await _httpClient.GetFromJsonAsync<List<ClientDTO>>("https://localhost:44378/Clients");
+        tours = await _httpClient.GetFromJsonAsync<List<TourDTO>>("https://localhost:44378/Tours");
+    }
 }
 
