@@ -1,0 +1,17 @@
+﻿@page "/passes/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<PassForm ButtonText="Create" pass="@pass"
+           OnValidSubmit="@CreatePass" />
+
+@code {
+    PassInputDTO pass = new PassInputDTO();
+
+    async Task CreatePass()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Passes", pass);
+        uriHelper.NavigateTo("passes");
+    }
+}

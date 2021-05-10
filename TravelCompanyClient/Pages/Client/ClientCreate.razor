@@ -1,10 +1,11 @@
 ﻿@page "/clients/create"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 
 <h3>Create</h3>
-<ClientForm ButtonText="Create" client="@client"
-      OnValidSubmit="@CreateClient" />
+<ClientForm ButtonText="Create" client="@client" 
+            OnValidSubmit="@CreateClient" />
 
 @code {
     ClientDTO client = new ClientDTO();

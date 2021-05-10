@@ -1,0 +1,36 @@
+﻿<EditForm Model="@tour" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Hotel:</label>
+        <div>
+            <InputNumber @bind-Value="@tour.HotelId" />
+            <ValidationMessage For="@(() => tour.HotelId)" />
+        </div>
+        <label>Duration (Weeks):</label>
+        <div>
+            <InputNumber @bind-Value="@tour.Duration" />
+            <ValidationMessage For="@(() => tour.Duration)" />
+        </div>
+        <label>Price:</label>
+        <div>
+            <InputNumber @bind-Value="@tour.Price" />
+            <ValidationMessage For="@(() => tour.Price)" />
+        </div>
+        <label>Description:</label>
+        <div>
+            <InputText @bind-Value="@tour.Description" />
+            <ValidationMessage For="@(() => tour.Description)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/tours">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public TourDTO tour { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}
+

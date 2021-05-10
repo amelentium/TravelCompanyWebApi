@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi", "TravelCompanyWebApi\TravelCompanyWebApi.csproj", "{39DEF010-0E20-4F02-929A-9E2AFE36CA50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyClient", "TravelCompanyClient\TravelCompanyClient.csproj", "{F00CDC98-21CF-478D-A452-1F36743B22DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyClient", "TravelCompanyClient\TravelCompanyClient.csproj", "{F00CDC98-21CF-478D-A452-1F36743B22DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

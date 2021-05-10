@@ -1,0 +1,28 @@
+﻿@page "/passdiscounts/edit/{passdiscountId:int}"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Update</h3>
+<PassDiscountForm ButtonText="Update" passdiscount="@passdiscount"
+           OnValidSubmit="@EditPassDiscount" />
+
+@code {
+    [Parameter] public int passdiscountId { get; set; }
+    PassDiscountDTO passdiscount = new PassDiscountDTO();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        passdiscount = await _httpClient.GetFromJsonAsync<PassDiscountDTO>($"https://localhost:44378/PassDiscounts/{passdiscountId}");
+    }
+
+    async Task EditPassDiscount()
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {passdiscount.Id}?"))
+        {
+            await _httpClient.PutAsJsonAsync($"https://localhost:44378/PassDiscounts/{passdiscountId}", passdiscount);
+            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            uriHelper.NavigateTo("passdiscounts");
+        }
+    }
+}

@@ -1,0 +1,17 @@
+﻿@page "/tours/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<TourForm ButtonText="Create" tour="@tour"
+           OnValidSubmit="@CreateTour" />
+
+@code {
+    TourDTO tour = new TourDTO();
+
+    async Task CreateTour()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Tours", tour);
+        uriHelper.NavigateTo("tours");
+    }
+}

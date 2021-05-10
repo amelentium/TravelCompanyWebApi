@@ -1,0 +1,26 @@
+﻿<EditForm Model="@passdiscount" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Discount:</label>
+        <div>
+            <InputNumber @bind-Value="@passdiscount.DiscountId" />
+            <ValidationMessage For="@(() => passdiscount.DiscountId)" />
+        </div>
+        <label>Pass:</label>
+        <div>
+            <InputNumber @bind-Value="@passdiscount.PassId" />
+            <ValidationMessage For="@(() => passdiscount.PassId)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+    <a class="btn btn-secondary" href="/passdiscounts">Back</a>
+</EditForm>
+
+@code {
+    [Parameter] public PassDiscountDTO passdiscount { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}
+
