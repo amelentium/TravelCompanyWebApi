@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 
-#nullable disable
-
 namespace TravelCompanyWebApi.Infrastructure.Entity
 {
-    public partial class City : IEntity
+    public partial class City : IEntity<int>
     {
         public City()
         {
@@ -13,7 +11,7 @@ namespace TravelCompanyWebApi.Infrastructure.Entity
 
         public int Id { get; set; }
         public int? CountryId { get; set; }
-        public int? ClimateId { get; set; }
+        public byte? ClimateId { get; set; }
         public string Name { get; set; }
 
         public virtual Climate Climate { get; set; }

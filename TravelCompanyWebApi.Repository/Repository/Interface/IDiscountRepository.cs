@@ -2,7 +2,7 @@
 
 namespace TravelCompanyWebApi.Repository.Repository.Interface
 {
-    public interface IDiscountRepository : IGenericRepository<Discount>
+    public interface IDiscountRepository : IGenericRepository<Discount, int>
     {
     }
 }

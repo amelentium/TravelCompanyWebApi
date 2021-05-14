@@ -3,9 +3,9 @@ using TravelCompanyWebApi.Infrastructure.Entity;
 
 namespace TravelCompanyWebApi.Repository.Repository.Interface
 {
-    public interface ICityRepository : IGenericRepository<City>
+    public interface ICityRepository : IGenericRepository<City, int>
     {
         IEnumerable<City> GetCitiesByCountryId(int countryId);
-        IEnumerable<City> GetCitiesByClimateId(int climateId);
+        IEnumerable<City> GetCitiesByClimateId(byte climateId);
     }
 }

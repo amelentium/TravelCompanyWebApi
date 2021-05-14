@@ -42,7 +42,7 @@ namespace TrevelCompanyWebApi.Controllers
 
         [Route("Climates/{id}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteClimate(int id)
+        public async Task<IActionResult> DeleteClimate(byte id)
         {
             await _service.DeleteClimate(id);
 
@@ -51,7 +51,7 @@ namespace TrevelCompanyWebApi.Controllers
 
         [Route("Climates/{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetClimateById(int id)
+        public async Task<IActionResult> GetClimateById(byte id)
         {
             var result = await _service.GetClimateById(id);
 
@@ -60,7 +60,7 @@ namespace TrevelCompanyWebApi.Controllers
 
         [Route("Climates/{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpdateClimate(int id, [FromBody] ClimateDTO climateDTO)
+        public async Task<IActionResult> UpdateClimate(byte id, [FromBody] ClimateDTO climateDTO)
         {
             climateDTO.Id = id;
 

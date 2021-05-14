@@ -73,7 +73,7 @@ namespace TrevelCompanyWebApi.Controllers
 
         [Route("Cities/Climate/{id}")]
         [HttpGet]
-        public IActionResult GetCitiesByClimateId(int id)
+        public IActionResult GetCitiesByClimateId(byte id)
         {
             var result = _service.GetCitiesByClimateId(id);
 

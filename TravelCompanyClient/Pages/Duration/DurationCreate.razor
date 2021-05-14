@@ -1,0 +1,17 @@
+﻿@page "/durations/create"
+@inject HttpClient _httpClient
+@inject NavigationManager uriHelper
+
+<h3>Create</h3>
+<DurationForm ButtonText="Create" duration="@duration"
+      OnValidSubmit="@CreateDuration" />
+
+@code {
+    DurationDTO duration = new DurationDTO();
+
+    async Task CreateDuration()
+    {
+        await _httpClient.PostAsJsonAsync("https://localhost:44378/Durations", duration);
+        uriHelper.NavigateTo("durations");
+    }
+}

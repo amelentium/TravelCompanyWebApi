@@ -11,7 +11,7 @@ namespace TravelCompanyWebApi.Service.Interface
         Task<IEnumerable<City>> GetCities();
         Task<City> GetCityById(int id);
         IEnumerable<City> GetCitiesByCountryId(int countryId);
-        IEnumerable<City> GetCitiesByClimateId(int climateId);
+        IEnumerable<City> GetCitiesByClimateId(byte climateId);
         Task UpdateCity(City city);
     }
 }

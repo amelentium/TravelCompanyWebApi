@@ -2,7 +2,7 @@
 
 namespace TravelCompanyWebApi.Repository.Repository.Interface
 {
-    public interface IClimateRepository : IGenericRepository<Climate>
+    public interface IClimateRepository : IGenericRepository<Climate, byte>
     {
     }
 }

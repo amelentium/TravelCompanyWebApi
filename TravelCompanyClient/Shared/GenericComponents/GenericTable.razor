@@ -23,13 +23,13 @@ else
             <tr>
                 @foreach (var field in data[0].GetType().GetProperties())
                 {
-                    @if (data[0].GetType() == typeof(TourDTO) && field.Name == "Duration")
-                    {
-                        <th>@($"{field.Name} (Weeks)")</th>
-                    }
-                    else if (data[0].GetType() == typeof(DiscountDTO) && field.Name == "Value")
+                    @if (data[0].GetType() == typeof(DiscountDTO) && field.Name == "Value")
                     {
                         <th>@($"{field.Name} (%)")</th>
+                    }
+                    else if(field.Name == "Duration")
+                    {
+                        <th>@($"{field.Name} (Weeks)")</th>
                     }
                     else
                     {

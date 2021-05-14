@@ -12,6 +12,7 @@ namespace TravelCompanyWebApi.Repository.UnitOfWork
         private readonly IClimateRepository _climateRepository;
         private readonly ICountryRepository _countryRepository;
         private readonly IDiscountRepository _discountRepository;
+        private readonly IDurationRepository _durationRepository;
         private readonly IHotelRepository _hotelRepository;
         private readonly IPassDiscountRepository _passDiscountRepository;
         private readonly IPassRepository _passRepository;
@@ -19,14 +20,16 @@ namespace TravelCompanyWebApi.Repository.UnitOfWork
         private readonly TravelCompanyDBContext _context;
 
         public UnitOfWork(ICityRepository cityRepository, IClientRepository clientRepository, IClimateRepository climateRepository,
-            ICountryRepository countryRepository, IDiscountRepository discountRepository, IHotelRepository hotelRepository,
-            IPassDiscountRepository passDiscountRepository, IPassRepository passRepository, ITourRepository tourRepository, TravelCompanyDBContext context)
+            ICountryRepository countryRepository, IDiscountRepository discountRepository, IDurationRepository durationRepository,
+            IHotelRepository hotelRepository, IPassDiscountRepository passDiscountRepository, IPassRepository passRepository,
+            ITourRepository tourRepository, TravelCompanyDBContext context)
         {
             _cityRepository = cityRepository;
             _clientRepository = clientRepository;
             _climateRepository = climateRepository;
             _countryRepository = countryRepository;
             _discountRepository = discountRepository;
+            _durationRepository = durationRepository;
             _hotelRepository = hotelRepository;
             _passDiscountRepository = passDiscountRepository;
             _passRepository = passRepository;
@@ -41,6 +44,8 @@ namespace TravelCompanyWebApi.Repository.UnitOfWork
         public ICountryRepository CountryRepository => _countryRepository;
 
         public IDiscountRepository DiscountRepository => _discountRepository;
+
+        public IDurationRepository DurationRepository => _durationRepository;
 
         public ICityRepository CityRepository => _cityRepository;
 

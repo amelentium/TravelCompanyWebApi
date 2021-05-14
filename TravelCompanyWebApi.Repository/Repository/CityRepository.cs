@@ -6,11 +6,11 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class CityRepository : GenericRepository<City>, ICityRepository
+    public class CityRepository : GenericRepository<City, int>, ICityRepository
     {
         public CityRepository(TravelCompanyDBContext context) : base(context) { }
 
-        public IEnumerable<City> GetCitiesByClimateId(int climateId)
+        public IEnumerable<City> GetCitiesByClimateId(byte climateId)
         {
             return _set.Where(c => c.ClimateId == climateId).AsEnumerable();
         }

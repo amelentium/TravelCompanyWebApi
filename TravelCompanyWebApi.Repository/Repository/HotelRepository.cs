@@ -6,7 +6,7 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class HotelRepository : GenericRepository<Hotel>, IHotelRepository
+    public class HotelRepository : GenericRepository<Hotel, int>, IHotelRepository
     {
         public HotelRepository(TravelCompanyDBContext context) : base(context) { }
 

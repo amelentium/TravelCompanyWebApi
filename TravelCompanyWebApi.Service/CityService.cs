@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.Entity;
 using TravelCompanyWebApi.Repository.Repository.Interface;
@@ -38,7 +37,7 @@ namespace TravelCompanyWebApi.Service
             return await _repository.Get();
         }
 
-        public IEnumerable<City> GetCitiesByClimateId(int climateId)
+        public IEnumerable<City> GetCitiesByClimateId(byte climateId)
         {
             return _repository.GetCitiesByClimateId(climateId);
         }

@@ -1,8 +1,6 @@
-﻿#nullable disable
-
-namespace TravelCompanyWebApi.Infrastructure.Entity
+﻿namespace TravelCompanyWebApi.Infrastructure.Entity
 {
-    public partial class PassDiscount : IEntity
+    public partial class PassDiscount : IEntity<int>
     {
         public int Id { get; set; }
         public int? PassId { get; set; }

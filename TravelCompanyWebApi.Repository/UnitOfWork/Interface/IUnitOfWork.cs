@@ -10,6 +10,7 @@ namespace TravelCompanyWebApi.Repository.UnitOfWork.Interface
         IClimateRepository ClimateRepository { get; }
         ICountryRepository CountryRepository { get; }
         IDiscountRepository DiscountRepository { get; }
+        IDurationRepository DurationRepository { get; }
         IHotelRepository HotelRepository { get; }
         IPassDiscountRepository PassDiscountRepository { get; }
         IPassRepository PassRepository { get; }

@@ -7,7 +7,7 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
+    public class GenericRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : class, IEntity<TId>
     {
         protected readonly TravelCompanyDBContext _context;
         protected readonly DbSet<TEntity> _set;
@@ -23,7 +23,7 @@ namespace TravelCompanyWebApi.Repository.Repository
             await _set.AddAsync(entity);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(TId id)
         {
             _set.Remove(await _set.FindAsync(id));
         }
@@ -33,7 +33,7 @@ namespace TravelCompanyWebApi.Repository.Repository
             return await _set.ToListAsync();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(TId id)
         {
             return await _set.FindAsync(id);
         }

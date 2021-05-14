@@ -6,7 +6,7 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class PassRepository : GenericRepository<Pass>, IPassRepository
+    public class PassRepository : GenericRepository<Pass, int>, IPassRepository
     {
         public PassRepository(TravelCompanyDBContext context) : base(context) { }
 

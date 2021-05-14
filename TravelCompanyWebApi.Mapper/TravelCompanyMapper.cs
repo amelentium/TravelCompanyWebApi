@@ -24,6 +24,9 @@ namespace TravelCompanyWebApi.Mapper
             CreateMap<Discount, DiscountDTO>();
             CreateMap<DiscountDTO, Discount>();
 
+            CreateMap<Duration, DurationDTO>();
+            CreateMap<DurationDTO, Duration>();
+
             CreateMap<Hotel, HotelDTO>();
             CreateMap<HotelDTO, Hotel>();
 

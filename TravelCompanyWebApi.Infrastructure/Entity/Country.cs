@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 
-#nullable disable
-
 namespace TravelCompanyWebApi.Infrastructure.Entity
 {
-    public partial class Country : IEntity
+    public partial class Country : IEntity<int>
     {
         public Country()
         {

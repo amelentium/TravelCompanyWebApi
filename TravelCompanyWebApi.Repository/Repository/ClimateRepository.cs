@@ -4,7 +4,7 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class ClimateRepository : GenericRepository<Climate>, IClimateRepository
+    public class ClimateRepository : GenericRepository<Climate, byte>, IClimateRepository
     {
         public ClimateRepository(TravelCompanyDBContext context) : base(context) { }
     }

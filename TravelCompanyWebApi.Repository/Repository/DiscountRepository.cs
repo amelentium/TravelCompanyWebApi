@@ -4,7 +4,7 @@ using TravelCompanyWebApi.Repository.Repository.Interface;
 
 namespace TravelCompanyWebApi.Repository.Repository
 {
-    public class DiscountRepository : GenericRepository<Discount>, IDiscountRepository
+    public class DiscountRepository : GenericRepository<Discount, int>, IDiscountRepository
     {
         public DiscountRepository(TravelCompanyDBContext context) : base(context) { }
     }

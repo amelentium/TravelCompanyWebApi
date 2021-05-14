@@ -7,9 +7,9 @@ namespace TravelCompanyWebApi.Service.Interface
     public interface IClimateService
     {
         Task AddClimate(Climate climate);
-        Task DeleteClimate(int id);
+        Task DeleteClimate(byte id);
         Task<IEnumerable<Climate>> GetClimates();
-        Task<Climate> GetClimateById(int id);
+        Task<Climate> GetClimateById(byte id);
         Task UpdateClimate(Climate climate);
     }
 }

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-#nullable disable
+﻿using System;
+using System.Collections.Generic;
 
 namespace TravelCompanyWebApi.Infrastructure.Entity
 {
-    public partial class Pass : IEntity
+    public partial class Pass : IEntity<int>
     {
         public Pass()
         {
@@ -18,6 +17,7 @@ namespace TravelCompanyWebApi.Infrastructure.Entity
         public double? TotalDiscount { get; set; }
         public int? FullPrice { get; set; }
         public double? FinalPrice { get; set; }
+        public DateTime? PurchaseDate { get; set; }
 
         public virtual Client Client { get; set; }
         public virtual Tour Tour { get; set; }

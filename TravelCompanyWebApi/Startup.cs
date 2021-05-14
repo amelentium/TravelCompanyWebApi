@@ -37,6 +37,7 @@ namespace TrevelCompanyWebApi
             services.AddTransient<IClimateRepository, ClimateRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<IDiscountRepository, DiscountRepository>();
+            services.AddTransient<IDurationRepository, DurationRepository>();
             services.AddTransient<IHotelRepository, HotelRepository>();
             services.AddTransient<IPassDiscountRepository, PassDiscountRepository>();
             services.AddTransient<IPassRepository, PassRepository>();
@@ -50,6 +51,7 @@ namespace TrevelCompanyWebApi
             services.AddTransient<IClimateService, ClimateService>();
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IDiscountService, DiscountService>();
+            services.AddTransient<IDurationService, DurationService>();
             services.AddTransient<IHotelService, HotelService>();
             services.AddTransient<IPassDiscountService, PassDiscountService>();
             services.AddTransient<IPassService, PassService>();

@@ -42,6 +42,11 @@ namespace TravelCompanyWebApi.Service
             return await _repository.Get();
         }
 
+        public IEnumerable<Tour> GetToursByDurationId(byte durationId)
+        {
+            return _repository.GetToursByHotelId(durationId);
+        }
+
         public IEnumerable<Tour> GetToursByHotelId(int hotelId)
         {
             return _repository.GetToursByHotelId(hotelId);

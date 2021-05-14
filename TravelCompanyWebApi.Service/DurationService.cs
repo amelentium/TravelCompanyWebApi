@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.Entity;
 using TravelCompanyWebApi.Repository.Repository.Interface;
@@ -7,44 +10,44 @@ using TravelCompanyWebApi.Service.Interface;
 
 namespace TravelCompanyWebApi.Service
 {
-    public class ClimateService : IClimateService
+    public class DurationService : IDurationService
     {
         private readonly IUnitOfWork _unit;
-        private readonly IClimateRepository _repository;
+        private readonly IDurationRepository _repository;
 
-        public ClimateService(IUnitOfWork unitOfWork)
+        public DurationService(IUnitOfWork unitOfWork)
         {
             _unit = unitOfWork;
-            _repository = _unit.ClimateRepository;
+            _repository = _unit.DurationRepository;
         }
 
-        public async Task AddClimate(Climate climate)
+        public async Task AddDuration(Duration duration)
         {
-            await _repository.Add(climate);
+            await _repository.Add(duration);
 
             await _unit.Complete();
         }
 
-        public async Task DeleteClimate(byte id)
+        public async Task DeleteDuration(byte id)
         {
             await _repository.Delete(id);
 
             await _unit.Complete();
         }
 
-        public async Task<Climate> GetClimateById(byte id)
+        public async Task<Duration> GetDurationById(byte id)
         {
             return await _repository.GetById(id);
         }
 
-        public async Task<IEnumerable<Climate>> GetClimates()
+        public async Task<IEnumerable<Duration>> GetDurations()
         {
             return await _repository.Get();
         }
 
-        public async Task UpdateClimate(Climate climate)
+        public async Task UpdateDuration(Duration duration)
         {
-            _repository.Update(climate);
+            _repository.Update(duration);
 
             await _unit.Complete();
         }

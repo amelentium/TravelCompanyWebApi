@@ -2,7 +2,7 @@
 
 namespace TravelCompanyWebApi.Repository.Repository.Interface
 {
-    public interface ICountryRepository : IGenericRepository<Country, int>
+    public interface IDurationRepository : IGenericRepository<Duration, byte>
     {
     }
 }

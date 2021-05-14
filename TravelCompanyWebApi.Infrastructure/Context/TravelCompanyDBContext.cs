@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using TravelCompanyWebApi.Infrastructure.Entity;
-
-#nullable disable
 
 namespace TravelCompanyWebApi.Infrastructure.Context
 {
@@ -23,6 +19,7 @@ namespace TravelCompanyWebApi.Infrastructure.Context
         public virtual DbSet<Climate> Climates { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
+        public virtual DbSet<Duration> Durations { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<Pass> Passes { get; set; }
         public virtual DbSet<PassDiscount> PassDiscounts { get; set; }
@@ -67,11 +64,13 @@ namespace TravelCompanyWebApi.Infrastructure.Context
 
                 entity.Property(e => e.MiddleName).HasMaxLength(20);
 
-                entity.Property(e => e.PhoneNumber).HasMaxLength(17);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(15);
             });
 
             modelBuilder.Entity<Climate>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Name).HasMaxLength(20);
             });
 
@@ -85,9 +84,16 @@ namespace TravelCompanyWebApi.Infrastructure.Context
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Duration>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Time).HasColumnName("time");
+            });
+
             modelBuilder.Entity<Hotel>(entity =>
             {
-                entity.Property(e => e.Name).HasMaxLength(20);
+                entity.Property(e => e.Name).HasMaxLength(40);
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Hotels)
@@ -101,6 +107,8 @@ namespace TravelCompanyWebApi.Infrastructure.Context
                 entity.Property(e => e.FinalPrice).HasComputedColumnSql("([dbo].[computeFinalPrice]([Id],[TourId],[Count]))", false);
 
                 entity.Property(e => e.FullPrice).HasComputedColumnSql("([dbo].[computeFullPrice]([TourId],[Count]))", false);
+
+                entity.Property(e => e.PurchaseDate).HasPrecision(0);
 
                 entity.Property(e => e.TotalDiscount).HasComputedColumnSql("([dbo].[computeFullDiscount]([Id]))", false);
 
@@ -134,6 +142,16 @@ namespace TravelCompanyWebApi.Infrastructure.Context
 
             modelBuilder.Entity<Tour>(entity =>
             {
+                entity.Property(e => e.Name).HasMaxLength(80);
+
+                entity.Property(e => e.StartDate).HasColumnType("date");
+
+                entity.HasOne(d => d.Duration)
+                    .WithMany(p => p.Tours)
+                    .HasForeignKey(d => d.DurationId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_Tours_Durations");
+
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Tours)
                     .HasForeignKey(d => d.HotelId)

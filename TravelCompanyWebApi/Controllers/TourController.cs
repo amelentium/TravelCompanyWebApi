@@ -71,6 +71,15 @@ namespace TrevelCompanyWebApi.Controllers
             return Ok();
         }
 
+        [Route("Tours/Duration/{id}")]
+        [HttpGet]
+        public IActionResult GetToursByDurationId(byte id)
+        {
+            var result = _service.GetToursByDurationId(id);
+
+            return Ok(_mapper.Map<IEnumerable<TourDTO>>(result));
+        }
+
         [Route("Tours/Hotel/{id}")]
         [HttpGet]
         public IActionResult GetToursByHotelId(int id)
