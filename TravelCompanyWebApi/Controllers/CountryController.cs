@@ -1,22 +1,24 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TravelCompanyWebApi.CQRS.Countries.Commands;
+using TravelCompanyWebApi.CQRS.Countries.Queries;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
-using TravelCompanyWebApi.Service.Interface;
 
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
     public class CountryController : ControllerBase
     {
-        private readonly ICountryService _service;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public CountryController(ICountryService service, IMapper mapper)
+        public CountryController(IMediator mediator, IMapper mapper)
         {
-            _service = service;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -24,7 +26,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCountries()
         {
-            var result = await _service.GetCountries();
+            var result = await _mediator.Send(new GetAllCountriesQuery());
 
             return Ok(_mapper.Map<IEnumerable<CountryDTO>>(result));
         }
@@ -35,7 +37,7 @@ namespace TrevelCompanyWebApi.Controllers
         {
             var country = _mapper.Map<Country>(countryDTO);
 
-            await _service.AddCountry(country);
+            await _mediator.Send(new CreateCountryCommand(country));
 
             return Ok();
         }
@@ -44,7 +46,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            await _service.DeleteCountry(id);
+            await _mediator.Send(new DeleteCountryCommand(id));
 
             return Ok();
         }
@@ -53,7 +55,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCountryById(int id)
         {
-            var result = await _service.GetCountryById(id);
+            var result = await _mediator.Send(new GetCountryByIdQuery(id));
 
             return Ok(_mapper.Map<CountryDTO>(result));
         }
@@ -66,7 +68,7 @@ namespace TrevelCompanyWebApi.Controllers
 
             var country = _mapper.Map<Country>(countryDTO);
 
-            await _service.UpdateCountry(country);
+            await _mediator.Send(new UpdateCountryCommand(country));
 
             return Ok();
         }

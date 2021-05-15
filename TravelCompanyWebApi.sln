@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi", "Trav
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyClient", "TravelCompanyClient\TravelCompanyClient.csproj", "{F00CDC98-21CF-478D-A452-1F36743B22DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.CQRS", "TravelCompanyWebApi.CQRS\TravelCompanyWebApi.CQRS.csproj", "{C634C48C-66D3-4A6C-9DE3-22A6BCF0C96E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F00CDC98-21CF-478D-A452-1F36743B22DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C634C48C-66D3-4A6C-9DE3-22A6BCF0C96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C634C48C-66D3-4A6C-9DE3-22A6BCF0C96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C634C48C-66D3-4A6C-9DE3-22A6BCF0C96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C634C48C-66D3-4A6C-9DE3-22A6BCF0C96E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

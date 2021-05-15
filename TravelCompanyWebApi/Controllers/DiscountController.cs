@@ -1,22 +1,24 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TravelCompanyWebApi.CQRS.Discounts.Commands;
+using TravelCompanyWebApi.CQRS.Discounts.Queries;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
-using TravelCompanyWebApi.Service.Interface;
 
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
     public class DiscountController : ControllerBase
     {
-        private readonly IDiscountService _service;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public DiscountController(IDiscountService service, IMapper mapper)
+        public DiscountController(IMediator mediator, IMapper mapper)
         {
-            _service = service;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -24,7 +26,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDiscounts()
         {
-            var result = await _service.GetDiscounts();
+            var result = await _mediator.Send(new GetAllDiscountsQuery());
 
             return Ok(_mapper.Map<IEnumerable<DiscountDTO>>(result));
         }
@@ -35,7 +37,7 @@ namespace TrevelCompanyWebApi.Controllers
         {
             var discount = _mapper.Map<Discount>(discountDTO);
 
-            await _service.AddDiscount(discount);
+            await _mediator.Send(new CreateDiscountCommand(discount));
 
             return Ok();
         }
@@ -44,7 +46,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteDiscount(int id)
         {
-            await _service.DeleteDiscount(id);
+            await _mediator.Send(new DeleteDiscountCommand(id));
 
             return Ok();
         }
@@ -53,7 +55,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDiscountById(int id)
         {
-            var result = await _service.GetDiscountById(id);
+            var result = await _mediator.Send(new GetDiscountByIdQuery(id));
 
             return Ok(_mapper.Map<DiscountDTO>(result));
         }
@@ -66,7 +68,7 @@ namespace TrevelCompanyWebApi.Controllers
 
             var discount = _mapper.Map<Discount>(discountDTO);
 
-            await _service.UpdateDiscount(discount);
+            await _mediator.Send(new UpdateDiscountCommand(discount));
 
             return Ok();
         }

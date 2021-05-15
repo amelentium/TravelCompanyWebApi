@@ -1,22 +1,24 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TravelCompanyWebApi.CQRS.Climates.Commands;
+using TravelCompanyWebApi.CQRS.Climates.Queries;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
-using TravelCompanyWebApi.Service.Interface;
 
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
     public class ClimateController : ControllerBase
     {
-        private readonly IClimateService _service;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public ClimateController(IClimateService service, IMapper mapper)
+        public ClimateController(IMediator mediator, IMapper mapper)
         {
-            _service = service;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -24,7 +26,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClimates()
         {
-            var result = await _service.GetClimates();
+            var result = await _mediator.Send(new GetAllClimatesQuery());
 
             return Ok(_mapper.Map<IEnumerable<ClimateDTO>>(result));
         }
@@ -35,7 +37,7 @@ namespace TrevelCompanyWebApi.Controllers
         {
             var climate = _mapper.Map<Climate>(climateDTO);
 
-            await _service.AddClimate(climate);
+            await _mediator.Send(new CreateClimateCommand(climate));
 
             return Ok();
         }
@@ -44,7 +46,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteClimate(byte id)
         {
-            await _service.DeleteClimate(id);
+            await _mediator.Send(new DeleteClimateCommand(id));
 
             return Ok();
         }
@@ -53,7 +55,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClimateById(byte id)
         {
-            var result = await _service.GetClimateById(id);
+            var result = await _mediator.Send(new GetClimateByIdQuery(id));
 
             return Ok(_mapper.Map<ClimateDTO>(result));
         }
@@ -66,7 +68,7 @@ namespace TrevelCompanyWebApi.Controllers
 
             var climate = _mapper.Map<Climate>(climateDTO);
 
-            await _service.UpdateClimate(climate);
+            await _mediator.Send(new UpdateClimateCommand(climate));
 
             return Ok();
         }

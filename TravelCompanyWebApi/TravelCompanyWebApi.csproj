@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TravelCompanyWebApi.CQRS\TravelCompanyWebApi.CQRS.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Infrastructure\TravelCompanyWebApi.Infrastructure.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Mapper\TravelCompanyWebApi.Mapper.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj" />

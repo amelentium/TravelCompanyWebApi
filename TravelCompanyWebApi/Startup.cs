@@ -1,9 +1,12 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
 using TravelCompanyWebApi.Mapper;
 using TravelCompanyWebApi.Repository.Repository;
@@ -72,6 +75,8 @@ namespace TrevelCompanyWebApi
             });
 
             services.AddAutoMapper(typeof(TravelCompanyMapper));
+
+            services.AddMediatR(typeof(MediatRStartup).Assembly);
 
             services.AddSwaggerGen(c =>
             {

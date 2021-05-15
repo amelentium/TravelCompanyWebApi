@@ -1,22 +1,24 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TravelCompanyWebApi.CQRS.Clients.Commands;
+using TravelCompanyWebApi.CQRS.Clients.Queries;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
-using TravelCompanyWebApi.Service.Interface;
 
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IClientService _service;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public ClientController(IClientService service, IMapper mapper)
+        public ClientController(IMediator mediator, IMapper mapper)
         {
-            _service = service;
+            _mediator = mediator;
             _mapper = mapper;
         }
 
@@ -24,7 +26,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClients()
         {
-            var result = await _service.GetClients();
+            var result = await _mediator.Send(new GetAllClientsQuery());
 
             return Ok(_mapper.Map<IEnumerable<ClientDTO>>(result));
         }
@@ -35,7 +37,7 @@ namespace TrevelCompanyWebApi.Controllers
         {
             var client = _mapper.Map<Client>(clientDTO);
 
-            await _service.AddClient(client);
+            await _mediator.Send(new CreateClientCommand(client));
 
             return Ok();
         }
@@ -44,7 +46,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteClient(int id)
         {
-            await _service.DeleteClient(id);
+            await _mediator.Send(new DeleteClientCommand(id));
 
             return Ok();
         }
@@ -53,7 +55,7 @@ namespace TrevelCompanyWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClientById(int id)
         {
-            var result = await _service.GetClientById(id);
+            var result = await _mediator.Send(new GetClientByIdQuery(id));
 
             return Ok(_mapper.Map<ClientDTO>(result));
         }
@@ -66,7 +68,7 @@ namespace TrevelCompanyWebApi.Controllers
 
             var client = _mapper.Map<Client>(clientDTO);
 
-            await _service.UpdateClient(client);
+            await _mediator.Send(new UpdateClientCommand(client));
 
             return Ok();
         }
