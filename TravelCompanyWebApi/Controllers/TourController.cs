@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using TravelCompanyWebApi.Service.Interface;
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     public class TourController : ControllerBase
     {
         private readonly ITourService _service;
@@ -21,6 +23,7 @@ namespace TrevelCompanyWebApi.Controllers
         }
 
         [Route("Tours")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllTours()
         {

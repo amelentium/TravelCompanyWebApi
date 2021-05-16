@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Collections.Generic;
 using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
 using TravelCompanyWebApi.Mapper;
@@ -64,6 +65,7 @@ namespace TrevelCompanyWebApi
 
             services.AddControllers();
 
+            #region CORS
             services.AddCors(opt =>
             {
                 opt.AddPolicy(name: MyAllowSpecificOrigins, builder =>
@@ -73,15 +75,47 @@ namespace TrevelCompanyWebApi
                     .AllowAnyMethod();
                 });
             });
+            #endregion
+
+            #region Authentication
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", options =>
+                {
+                    options.ApiName = "myApi";
+                    options.Authority = "https://localhost:44307";
+                });
+            #endregion
 
             services.AddAutoMapper(typeof(TravelCompanyMapper));
 
             services.AddMediatR(typeof(MediatRStartup).Assembly);
 
+            #region Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TrevelCompanyWebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new List<string>()
+                    },
+                });
             });
+            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -101,6 +135,10 @@ namespace TrevelCompanyWebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
