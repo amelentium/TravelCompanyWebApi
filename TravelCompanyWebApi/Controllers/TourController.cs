@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
@@ -15,15 +17,16 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly ITourService _service;
         private readonly IMapper _mapper;
+        private readonly IValidator<Tour> _validator;
 
-        public TourController(ITourService service, IMapper mapper)
+        public TourController(ITourService service, IMapper mapper, IValidator<Tour> validator)
         {
             _service = service;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Tours")]
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAllTours()
         {
@@ -37,6 +40,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostTour([FromBody] TourDTO tourDTO)
         {
             var tour = _mapper.Map<Tour>(tourDTO);
+
+            var validation = _validator.Validate(tour);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.AddTour(tour);
 
@@ -68,6 +77,12 @@ namespace TrevelCompanyWebApi.Controllers
             tourDTO.Id = id;
 
             var tour = _mapper.Map<Tour>(tourDTO);
+
+            var validation = _validator.Validate(tour);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.UpdateTour(tour);
 

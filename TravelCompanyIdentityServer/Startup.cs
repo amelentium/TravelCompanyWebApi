@@ -46,7 +46,17 @@ namespace TravelCompanyIdentityServer
                 })
                 .AddDeveloperSigningCredential();
 
-            IdentityConfiguration.Init(services.BuildServiceProvider().CreateScope().ServiceProvider, false);
+            //IdentityConfiguration.Init(services.BuildServiceProvider().CreateScope().ServiceProvider, false);
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
             services.AddControllers();
         }
@@ -57,6 +67,8 @@ namespace TravelCompanyIdentityServer
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors();
 
             app.UseRouting();
 

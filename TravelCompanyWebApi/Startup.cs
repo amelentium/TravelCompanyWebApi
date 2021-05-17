@@ -1,3 +1,4 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
+using TravelCompanyWebApi.Infrastructure.Entity;
 using TravelCompanyWebApi.Mapper;
 using TravelCompanyWebApi.Repository.Repository;
 using TravelCompanyWebApi.Repository.Repository.Interface;
@@ -16,6 +18,7 @@ using TravelCompanyWebApi.Repository.UnitOfWork;
 using TravelCompanyWebApi.Repository.UnitOfWork.Interface;
 using TravelCompanyWebApi.Service;
 using TravelCompanyWebApi.Service.Interface;
+using TravelCompanyWebApi.Validator;
 
 namespace TrevelCompanyWebApi
 {
@@ -60,6 +63,19 @@ namespace TrevelCompanyWebApi
             services.AddTransient<IPassDiscountService, PassDiscountService>();
             services.AddTransient<IPassService, PassService>();
             services.AddTransient<ITourService, TourService>();
+            #endregion
+
+            #region Validators
+            services.AddTransient<IValidator<City>, CityValidator>();
+            services.AddTransient<IValidator<Client>, ClientValidator>();
+            services.AddTransient<IValidator<Climate>, ClimateValidator>();
+            services.AddTransient<IValidator<Country>, CountryValidator>();
+            services.AddTransient<IValidator<Discount>, DiscountValidator>();
+            services.AddTransient<IValidator<Duration>, DurationValidator>();
+            services.AddTransient<IValidator<Hotel>, HotelValidator>();
+            services.AddTransient<IValidator<Pass>, PassValidator>();
+            services.AddTransient<IValidator<PassDiscount>, PassDiscountValidator>();
+            services.AddTransient<IValidator<Tour>, TourValidator>();
             #endregion
             #endregion
 

@@ -1,13 +1,42 @@
 ﻿@inherits LayoutComponentBase
+@inject HttpClient _httpClient
+@inject IJSRuntime js
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@if (authorized)
+{
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
 
-    <div class="main">
-        <div class="content px-4">
-            @Body
+        <div class="main">
+            <div class="content px-4">
+                @Body
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="page">
+        <div style="margin: auto; text-align: center;">
+                <Login />
+        </div>
+    </div>
+}
+
+@code {
+    bool authorized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await js.InvokeAsync<string>("localStorage.getItem", "TravelCompanyToken");
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            authorized = true;
+
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+        }
+    }
+}

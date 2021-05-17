@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.CQRS.Countries.Commands;
 using TravelCompanyWebApi.CQRS.Countries.Queries;
@@ -17,11 +19,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IValidator<Country> _validator;
 
-        public CountryController(IMediator mediator, IMapper mapper)
+        public CountryController(IMediator mediator, IMapper mapper, IValidator<Country> validator)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Countries")]
@@ -38,6 +42,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostCountry([FromBody] CountryDTO countryDTO)
         {
             var country = _mapper.Map<Country>(countryDTO);
+
+            var validation = _validator.Validate(country);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new CreateCountryCommand(country));
 
@@ -69,6 +79,12 @@ namespace TrevelCompanyWebApi.Controllers
             countryDTO.Id = id;
 
             var country = _mapper.Map<Country>(countryDTO);
+
+            var validation = _validator.Validate(country);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new UpdateCountryCommand(country));
 

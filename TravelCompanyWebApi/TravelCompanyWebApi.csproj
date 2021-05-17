@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.1.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
@@ -17,6 +18,7 @@
     <ProjectReference Include="..\TravelCompanyWebApi.Mapper\TravelCompanyWebApi.Mapper.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj" />
+    <ProjectReference Include="..\TravelCompanyWebApi.Validator\TravelCompanyWebApi.Validator.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,11 @@
 ﻿@page "/discounts/create"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 
 <h3>Create</h3>
 <DiscountForm ButtonText="Create" discount="@discount"
-      OnValidSubmit="@CreateDiscount" />
+              OnValidSubmit="@CreateDiscount" />
 
 @code {
     DiscountDTO discount = new DiscountDTO();

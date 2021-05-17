@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
@@ -15,11 +17,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IPassDiscountService _service;
         private readonly IMapper _mapper;
+        private readonly IValidator<PassDiscount> _validator;
 
-        public PassDiscountController(IPassDiscountService service, IMapper mapper)
+        public PassDiscountController(IPassDiscountService service, IMapper mapper, IValidator<PassDiscount> validator)
         {
             _service = service;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("PassDiscounts")]
@@ -36,6 +40,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostPassDiscount([FromBody] PassDiscountDTO passDiscountDTO)
         {
             var passDiscount = _mapper.Map<PassDiscount>(passDiscountDTO);
+
+            var validation = _validator.Validate(passDiscount);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.AddPassDiscount(passDiscount);
 
@@ -67,6 +77,12 @@ namespace TrevelCompanyWebApi.Controllers
             passDiscountDTO.Id = id;
 
             var passDiscount = _mapper.Map<PassDiscount>(passDiscountDTO);
+
+            var validation = _validator.Validate(passDiscount);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.UpdatePassDiscount(passDiscount);
 

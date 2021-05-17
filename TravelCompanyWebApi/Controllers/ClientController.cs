@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.CQRS.Clients.Commands;
 using TravelCompanyWebApi.CQRS.Clients.Queries;
@@ -17,11 +19,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IValidator<Client> _validator;
 
-        public ClientController(IMediator mediator, IMapper mapper)
+        public ClientController(IMediator mediator, IMapper mapper, IValidator<Client> validator)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Clients")]
@@ -38,6 +42,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostClient([FromBody] ClientDTO clientDTO)
         {
             var client = _mapper.Map<Client>(clientDTO);
+
+            var validation = _validator.Validate(client);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new CreateClientCommand(client));
 
@@ -69,6 +79,12 @@ namespace TrevelCompanyWebApi.Controllers
             clientDTO.Id = id;
 
             var client = _mapper.Map<Client>(clientDTO);
+
+            var validation = _validator.Validate(client);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new UpdateClientCommand(client));
 

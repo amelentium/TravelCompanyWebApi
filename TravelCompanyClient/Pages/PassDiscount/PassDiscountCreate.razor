@@ -1,10 +1,11 @@
 ﻿@page "/passdiscounts/create"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 
 <h3>Create</h3>
 <PassDiscountForm ButtonText="Create" passdiscount="@passdiscount"
-           OnValidSubmit="@CreatePassDiscount" />
+                  OnValidSubmit="@CreatePassDiscount" />
 
 @code {
     PassDiscountDTO passdiscount = new PassDiscountDTO();

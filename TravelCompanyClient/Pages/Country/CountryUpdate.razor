@@ -1,4 +1,5 @@
 ﻿@page "/countries/edit/{countryId:int}"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -8,8 +9,8 @@
       OnValidSubmit="@EditCountry" />
 
 @code {
-        [Parameter] public int countryId { get; set; }
-        CountryDTO country = new CountryDTO();
+    [Parameter] public int countryId { get; set; }
+    CountryDTO country = new CountryDTO();
 
     protected async override Task OnParametersSetAsync()
     {

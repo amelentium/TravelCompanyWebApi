@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
@@ -15,11 +17,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IPassService _service;
         private readonly IMapper _mapper;
+        private readonly IValidator<Pass> _validator;
 
-        public PassController(IPassService service, IMapper mapper)
+        public PassController(IPassService service, IMapper mapper, IValidator<Pass> validator)
         {
             _service = service;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Passes")]
@@ -36,6 +40,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostPass([FromBody] PassInputDTO passDTO)
         {
             var pass = _mapper.Map<Pass>(passDTO);
+
+            var validation = _validator.Validate(pass);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.AddPass(pass);
 
@@ -67,6 +77,12 @@ namespace TrevelCompanyWebApi.Controllers
             passDTO.Id = id;
 
             var pass = _mapper.Map<Pass>(passDTO);
+
+            var validation = _validator.Validate(pass);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.UpdatePass(pass);
 

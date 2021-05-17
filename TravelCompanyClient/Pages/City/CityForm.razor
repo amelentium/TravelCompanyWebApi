@@ -18,9 +18,9 @@ else
                 <InputSelect @bind-Value="@city.ClimateId">
                     <option></option>
                     @foreach (var climate in climates)
-                    {
+                        {
                         <option value="@climate.Id">@climate.Name</option>
-                    }
+                        }
                 </InputSelect>
             </div>
             <label>Country:</label>
@@ -28,9 +28,9 @@ else
                 <InputSelect @bind-Value="@city.CountryId">
                     <option></option>
                     @foreach (var country in countries)
-                    {
+                        {
                         <option value="@country.Id">@country.Name</option>
-                    }
+                        }
                 </InputSelect>
             </div>
             <label>Name:</label>

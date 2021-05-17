@@ -18,9 +18,9 @@ else
                 <InputSelect @bind-Value="@hotel.CityId">
                     <option></option>
                     @foreach (var city in cities)
-                    {
+                        {
                         <option value="@city.Id">@city.Name</option>
-                    }
+                        }
                 </InputSelect>
             </div>
             <label>Name:</label>
@@ -45,9 +45,9 @@ else
     [Parameter] public HotelDTO hotel { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-    
+
     private List<CityDTO> cities;
-    
+
     protected override async Task OnInitializedAsync()
     {
         cities = await _httpClient.GetFromJsonAsync<List<CityDTO>>("https://localhost:44378/Cities");

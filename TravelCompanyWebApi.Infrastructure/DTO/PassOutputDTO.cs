@@ -1,4 +1,6 @@
-﻿namespace TravelCompanyWebApi.Infrastructure.DTO
+﻿using System;
+
+namespace TravelCompanyWebApi.Infrastructure.DTO
 {
     public class PassOutputDTO
     {
@@ -9,5 +11,6 @@
         public double? TotalDiscount { get; set; }
         public int? FullPrice { get; set; }
         public double? FinalPrice { get; set; }
+        public DateTime? PurchaseDate { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@page "/durations/edit/{durationId:int}"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -8,8 +9,8 @@
       OnValidSubmit="@EditDuration" />
 
 @code {
-        [Parameter] public int durationId { get; set; }
-        DurationDTO duration = new DurationDTO();
+    [Parameter] public int durationId { get; set; }
+    DurationDTO duration = new DurationDTO();
 
     protected async override Task OnParametersSetAsync()
     {

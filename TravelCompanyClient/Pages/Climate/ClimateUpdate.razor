@@ -1,4 +1,5 @@
 ﻿@page "/climates/edit/{climateId:int}"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -8,8 +9,8 @@
       OnValidSubmit="@EditClimate" />
 
 @code {
-        [Parameter] public int climateId { get; set; }
-        ClimateDTO climate = new ClimateDTO();
+    [Parameter] public int climateId { get; set; }
+    ClimateDTO climate = new ClimateDTO();
 
     protected async override Task OnParametersSetAsync()
     {

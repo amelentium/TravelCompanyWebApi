@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.Infrastructure.DTO;
 using TravelCompanyWebApi.Infrastructure.Entity;
@@ -15,11 +17,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly ICityService _service;
         private readonly IMapper _mapper;
+        private readonly IValidator<City> _validator;
 
-        public CityController(ICityService service, IMapper mapper)
+        public CityController(ICityService service, IMapper mapper, IValidator<City> validator)
         {
             _service = service;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Cities")]
@@ -36,6 +40,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostCity([FromBody] CityDTO cityDTO)
         {
             var city = _mapper.Map<City>(cityDTO);
+
+            var validation = _validator.Validate(city);
+            if(!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _service.AddCity(city);
 
@@ -67,6 +77,14 @@ namespace TrevelCompanyWebApi.Controllers
             cityDTO.Id = id;
 
             var city = _mapper.Map<City>(cityDTO);
+
+            var validation = _validator.Validate(city);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
+
+            await _service.AddCity(city);
 
             await _service.UpdateCity(city);
 

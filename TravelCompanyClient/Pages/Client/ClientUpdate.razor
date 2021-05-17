@@ -1,4 +1,5 @@
 ﻿@page "/clients/edit/{clientId:int}"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -8,8 +9,8 @@
       OnValidSubmit="@EditClient" />
 
 @code {
-        [Parameter] public int clientId { get; set; }
-        ClientDTO client = new ClientDTO();
+    [Parameter] public int clientId { get; set; }
+    ClientDTO client = new ClientDTO();
 
     protected async override Task OnParametersSetAsync()
     {

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.CQRS.Discounts.Commands;
 using TravelCompanyWebApi.CQRS.Discounts.Queries;
@@ -17,11 +19,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IValidator<Discount> _validator;
 
-        public DiscountController(IMediator mediator, IMapper mapper)
+        public DiscountController(IMediator mediator, IMapper mapper, IValidator<Discount> validator)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Discounts")]
@@ -38,6 +42,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostDiscount([FromBody] DiscountDTO discountDTO)
         {
             var discount = _mapper.Map<Discount>(discountDTO);
+
+            var validation = _validator.Validate(discount);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new CreateDiscountCommand(discount));
 
@@ -69,6 +79,12 @@ namespace TrevelCompanyWebApi.Controllers
             discountDTO.Id = id;
 
             var discount = _mapper.Map<Discount>(discountDTO);
+
+            var validation = _validator.Validate(discount);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new UpdateDiscountCommand(discount));
 

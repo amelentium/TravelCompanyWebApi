@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.CQRS.Climates.Commands;
 using TravelCompanyWebApi.CQRS.Climates.Queries;
@@ -17,11 +19,13 @@ namespace TrevelCompanyWebApi.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IValidator<Climate> _validator;
 
-        public ClimateController(IMediator mediator, IMapper mapper)
+        public ClimateController(IMediator mediator, IMapper mapper, IValidator<Climate> validator)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [Route("Climates")]
@@ -38,6 +42,12 @@ namespace TrevelCompanyWebApi.Controllers
         public async Task<IActionResult> PostClimate([FromBody] ClimateDTO climateDTO)
         {
             var climate = _mapper.Map<Climate>(climateDTO);
+
+            var validation = _validator.Validate(climate);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new CreateClimateCommand(climate));
 
@@ -69,6 +79,12 @@ namespace TrevelCompanyWebApi.Controllers
             climateDTO.Id = id;
 
             var climate = _mapper.Map<Climate>(climateDTO);
+
+            var validation = _validator.Validate(climate);
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            }
 
             await _mediator.Send(new UpdateClimateCommand(climate));
 

@@ -1,10 +1,11 @@
 ﻿@page "/hotels/create"
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 
 <h3>Create</h3>
 <HotelForm ButtonText="Create" hotel="@hotel"
-      OnValidSubmit="@CreateHotel" />
+           OnValidSubmit="@CreateHotel" />
 
 @code {
     HotelDTO hotel = new HotelDTO();
