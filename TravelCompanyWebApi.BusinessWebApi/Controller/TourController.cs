@@ -60,22 +60,22 @@ namespace TrevelCompanyWebApi.Controllers
             return Ok();
         }
 
-        //[Route("Tours/Duration/{id}")]
-        //[HttpGet]
-        //public IActionResult GetToursByDurationId(byte id)
-        //{
-        //    var result = _service.GetToursByDurationId(id);
+        [Route("Tours/Duration/{id}")]
+        [HttpGet]
+        public IActionResult GetToursByDurationId(byte id)
+        {
+            var result = _service.GetToursByDurationId(id);
 
-        //    return Ok(_mapper.Map<IEnumerable<TourDTO>>(result));
-        //}
+            return Ok(result);
+        }
 
-        //[Route("Tours/Hotel/{id}")]
-        //[HttpGet]
-        //public IActionResult GetToursByHotelId(int id)
-        //{
-        //    var result = _service.GetToursByHotelId(id);
+        [Route("Tours/Hotel/{id}")]
+        [HttpGet]
+        public IActionResult GetToursByHotelId(int id)
+        {
+            var result = _service.GetToursByHotelId(id);
 
-        //    return Ok(_mapper.Map<IEnumerable<TourDTO>>(result));
-        //}
+            return Ok(result);
+        }
     }
 }

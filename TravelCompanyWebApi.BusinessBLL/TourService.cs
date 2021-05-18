@@ -34,6 +34,16 @@ namespace TravelCompanyWebApi.BusinessBLL
             return await _unitOfWork.TourRepository.Get(Id);
         }
 
+        public async Task<IEnumerable<Tour>> GetToursByDurationId(byte durationId)
+        {
+            return await _unitOfWork.TourRepository.GetToursByDurationId(durationId);
+        }
+
+        public async Task<IEnumerable<Tour>> GetToursByHotelId(int hotelId)
+        {
+            return await _unitOfWork.TourRepository.GetToursByHotelId(hotelId);
+        }
+
         public async Task UpdateTour(Tour tour, int Id)
         {
             await _unitOfWork.TourRepository.Update(tour, Id);

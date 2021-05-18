@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -106,7 +107,7 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
             return typeof(TEntity)
                     .GetProperties()
                     .Where(e => e.Name != "Id" && e.Name != "TotalDiscount" && e.Name != "FullPrice" && e.Name != "FinalPrice")
-                    .Select(e => '\'' + e.GetValue(entity).ToString() + '\'');
+                    .Select(e => e.PropertyType.Equals(typeof(DateTime?))? '\'' + DateTime.Parse(e.GetValue(entity).ToString()).ToString("yyyy-MM-dd HH:mm:ss") + '\'' : '\'' + e.GetValue(entity).ToString() + '\'');
         }
     }
 }

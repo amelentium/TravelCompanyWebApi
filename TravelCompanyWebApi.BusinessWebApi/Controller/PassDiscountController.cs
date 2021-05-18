@@ -60,22 +60,22 @@ namespace TrevelCompanyWebApi.Controllers
             return Ok();
         }
 
-        //[Route("PassDiscounts/Discount/{id}")]
-        //[HttpGet]
-        //public IActionResult GetPassDiscountsByDiscountId(int id)
-        //{
-        //    var result = _service.GetPassDiscountsByDiscountId(id);
+        [Route("PassDiscounts/Discount/{id}")]
+        [HttpGet]
+        public IActionResult GetPassDiscountsByDiscountId(int id)
+        {
+            var result = _service.GetPassDiscountsByDiscountId(id);
 
-        //    return Ok(_mapper.Map<IEnumerable<PassDiscountDTO>>(result));
-        //}
+            return Ok(result);
+        }
 
-        //[Route("PassDiscounts/Pass/{id}")]
-        //[HttpGet]
-        //public IActionResult GetPassDiscountsByPassId(int id)
-        //{
-        //    var result = _service.GetPassDiscountsByPassId(id);
+        [Route("PassDiscounts/Pass/{id}")]
+        [HttpGet]
+        public IActionResult GetPassDiscountsByPassId(int id)
+        {
+            var result = _service.GetPassDiscountsByPassId(id);
 
-        //    return Ok(_mapper.Map<IEnumerable<PassDiscountDTO>>(result));
-        //}
+            return Ok(result);
+        }
     }
 }

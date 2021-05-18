@@ -34,6 +34,16 @@ namespace TravelCompanyWebApi.BusinessBLL
             return await _unitOfWork.PassRepository.Get(Id);
         }
 
+        public async Task<IEnumerable<Pass>> GetPassesByClientId(int clientId)
+        {
+            return await _unitOfWork.PassRepository.GetPassesByClientId(clientId);
+        }
+
+        public async Task<IEnumerable<Pass>> GetPassesByTourId(int tourId)
+        {
+            return await _unitOfWork.PassRepository.GetPassesByTourId(tourId);
+        }
+
         public async Task UpdatePass(Pass pass, int Id)
         {
             await _unitOfWork.PassRepository.Update(pass, Id);

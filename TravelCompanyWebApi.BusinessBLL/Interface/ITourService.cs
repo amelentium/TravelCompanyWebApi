@@ -13,6 +13,8 @@ namespace TravelCompanyWebApi.BusinessBLL.Interface
         Task DeleteTour(int Id);
 
         Task<Tour> GetTourById(int Id);
+        Task<IEnumerable<Tour>> GetToursByDurationId(byte durationId);
+        Task<IEnumerable<Tour>> GetToursByHotelId(int hotelId);
 
         Task<IEnumerable<Tour>> GetAllTours();
     }

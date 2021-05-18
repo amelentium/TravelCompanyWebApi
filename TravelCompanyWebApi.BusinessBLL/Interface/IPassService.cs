@@ -13,6 +13,8 @@ namespace TravelCompanyWebApi.BusinessBLL.Interface
         Task DeletePass(int Id);
 
         Task<Pass> GetPassById(int Id);
+        Task<IEnumerable<Pass>> GetPassesByClientId(int clientId);
+        Task<IEnumerable<Pass>> GetPassesByTourId(int tourId);
 
         Task<IEnumerable<Pass>> GetAllPasses();
     }
