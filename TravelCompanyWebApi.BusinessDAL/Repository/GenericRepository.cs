@@ -1,9 +1,11 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TravelCompanyWebApi.BusinessDAL.Entity.Interface;
+using TravelCompanyWebApi.BusinessDAL.Infrastructure;
 using TravelCompanyWebApi.BusinessDAL.Repositories.Interfaces;
 
 namespace TravelCompanyWebApi.BusinessDAL.Repository
@@ -11,11 +13,12 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
     public class GenericRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : IEntity<TId>
     {
         protected IConnectionFactory _connectionFactory;
-        private readonly string _tableName;
+        protected readonly string _tableName;
 
-        public GenericRepository(IConnectionFactory connectionFactory, string tableName)
+        public GenericRepository(IConnectionFactory connectionFactory, IConfiguration config, string tableName)
         {
             _connectionFactory = connectionFactory;
+            _connectionFactory.SetConnection(config["ConnectionString:DefaultConnection"]);
             _tableName = tableName;
         }
 
@@ -94,7 +97,7 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
         {
             return typeof(TEntity)
                     .GetProperties()
-                    .Where(e => e.Name != "Id" || e.Name != "TotalDiscount" || e.Name != "FullPrice" || e.Name != "FinalPrice")
+                    .Where(e => e.Name != "Id" && e.Name != "TotalDiscount" && e.Name != "FullPrice" && e.Name != "FinalPrice")
                     .Select(e => e.Name);
         }
 
@@ -102,7 +105,7 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
         {
             return typeof(TEntity)
                     .GetProperties()
-                    .Where(e => e.Name != "Id" || e.Name != "TotalDiscount" || e.Name != "FullPrice" || e.Name != "FinalPrice")
+                    .Where(e => e.Name != "Id" && e.Name != "TotalDiscount" && e.Name != "FullPrice" && e.Name != "FinalPrice")
                     .Select(e => '\'' + e.GetValue(entity).ToString() + '\'');
         }
     }

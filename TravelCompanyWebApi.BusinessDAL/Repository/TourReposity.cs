@@ -1,0 +1,12 @@
+﻿using Microsoft.Extensions.Configuration;
+using TravelCompanyWebApi.BusinessDAL.Entity;
+using TravelCompanyWebApi.BusinessDAL.Infrastructure;
+using TravelCompanyWebApi.BusinessDAL.Repository.Interface;
+
+namespace TravelCompanyWebApi.BusinessDAL.Repository
+{
+    public class TourRepository : GenericRepository<Tour, int>, ITourRepository
+    {
+        public TourRepository(IConnectionFactory connectionFactory, IConfiguration config) : base(connectionFactory, config, "Tours") { }
+    }
+}

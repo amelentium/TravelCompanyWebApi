@@ -29,9 +29,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business data servise", "Bu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common data service", "Common data service", "{8C965D6D-F938-4E84-80EE-ECB004E62B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.BusinessWebApi", "TravelCompanyWebApi.BusinessWebApi\TravelCompanyWebApi.BusinessWebApi.csproj", "{20886F0E-5DAC-4A88-AC84-275773F90876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.BusinessWebApi", "TravelCompanyWebApi.BusinessWebApi\TravelCompanyWebApi.BusinessWebApi.csproj", "{20886F0E-5DAC-4A88-AC84-275773F90876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.BusinessDAL", "TravelCompanyWebApi.BusinessDAL\TravelCompanyWebApi.BusinessDAL.csproj", "{51698226-FB00-4095-BD37-A58BEC870E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.BusinessDAL", "TravelCompanyWebApi.BusinessDAL\TravelCompanyWebApi.BusinessDAL.csproj", "{51698226-FB00-4095-BD37-A58BEC870E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompanyWebApi.BusinessBLL", "TravelCompanyWebApi.BusinessBLL\TravelCompanyWebApi.BusinessBLL.csproj", "{8291889A-8BCD-4437-8A41-31E199FEC526}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{51698226-FB00-4095-BD37-A58BEC870E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51698226-FB00-4095-BD37-A58BEC870E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51698226-FB00-4095-BD37-A58BEC870E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8291889A-8BCD-4437-8A41-31E199FEC526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8291889A-8BCD-4437-8A41-31E199FEC526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8291889A-8BCD-4437-8A41-31E199FEC526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8291889A-8BCD-4437-8A41-31E199FEC526}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{8C965D6D-F938-4E84-80EE-ECB004E62B38} = {B00BC810-53DE-4361-A048-863AFA5B3235}
 		{20886F0E-5DAC-4A88-AC84-275773F90876} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
 		{51698226-FB00-4095-BD37-A58BEC870E7C} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
+		{8291889A-8BCD-4437-8A41-31E199FEC526} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {706E7889-2B52-4CC4-BF32-6FC9E17CF2AA}

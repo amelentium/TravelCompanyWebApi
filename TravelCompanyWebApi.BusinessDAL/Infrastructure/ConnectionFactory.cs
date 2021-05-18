@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using TravelCompanyWebApi.BusinessDAL.Repositories.Interfaces;
 
 namespace TravelCompanyWebApi.BusinessDAL.Infrastructure
 {

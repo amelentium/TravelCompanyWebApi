@@ -12,7 +12,6 @@ using TravelCompanyWebApi.Service.Interface;
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
-    [Authorize]
     public class PassController : ControllerBase
     {
         private readonly IPassService _service;

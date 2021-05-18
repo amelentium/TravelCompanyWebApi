@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TravelCompanyWebApi.BusinessBLL\TravelCompanyWebApi.BusinessBLL.csproj" />
+    <ProjectReference Include="..\TravelCompanyWebApi.BusinessDAL\TravelCompanyWebApi.BusinessDAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace TravelCompanyWebApi.BusinessDAL.Repositories.Interfaces
+namespace TravelCompanyWebApi.BusinessDAL.Infrastructure
 {
     public interface IConnectionFactory
     {
