@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:2212",
-      "sslPort": 44301
+      "applicationUrl": "http://localhost:7516",
+      "sslPort": 44309
     }
   },
   "profiles": {
@@ -15,11 +15,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TravelCompanyWebApi.BusinessWebApi": {
+    "TravelCompanyWebApi.Gateway": {
         "commandName": "Project",
         "dotnetRunMessages": "true",
         "launchBrowser": true,
-        "applicationUrl": "https://localhost:44301;http://localhost:44300",
+        "applicationUrl": "https://localhost:44309;http://localhost:44308",
         "environmentVariables": {
             "ASPNETCORE_ENVIRONMENT": "Development"
         }

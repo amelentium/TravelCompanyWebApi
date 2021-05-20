@@ -12,6 +12,7 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
     <PackageReference Include="Grpc.AspNetCore.Web" Version="2.37.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.12.3" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
   </ItemGroup>
 
 </Project>

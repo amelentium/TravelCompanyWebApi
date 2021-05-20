@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
 using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
@@ -20,7 +19,7 @@ using TravelCompanyWebApi.Service;
 using TravelCompanyWebApi.Service.Interface;
 using TravelCompanyWebApi.Validator;
 
-namespace TrevelCompanyWebApi
+namespace TravelCompanyWebApi
 {
     public class Startup
     {

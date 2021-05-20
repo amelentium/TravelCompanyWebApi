@@ -1,9 +1,12 @@
 using ClientGrpcService.Repository;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ClientGrpcService
@@ -20,6 +23,17 @@ namespace ClientGrpcService
         public async override Task<Empty> CreateClient(ClientModel client, ServerCallContext context)
         {
             await _repository.Add(client);
+
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest", VirtualHost = "/", Port = 5672};
+
+            //using (var connection = factory.CreateConnection())
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(queue: "clientsQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            //    var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(client));
+
+            //    channel.BasicPublish(exchange: "", routingKey: "clients", basicProperties: null, body: body);
+            //}
 
             return new Empty();
         }
