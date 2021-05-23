@@ -12,7 +12,7 @@
 
     async Task CreateCity()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44378/Cities", city);
+        await _httpClient.PostAsJsonAsync("https://localhost:44379/Cities", city);
         uriHelper.NavigateTo("cities");
     }
 }

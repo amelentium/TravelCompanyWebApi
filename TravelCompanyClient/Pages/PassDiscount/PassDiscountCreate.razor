@@ -12,7 +12,7 @@
 
     async Task CreatePassDiscount()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44378/PassDiscounts", passdiscount);
+        await _httpClient.PostAsJsonAsync("https://localhost:44379/PassDiscounts", passdiscount);
         uriHelper.NavigateTo("passdiscounts");
     }
 }

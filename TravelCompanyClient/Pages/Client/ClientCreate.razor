@@ -12,7 +12,7 @@
 
     async Task CreateClient()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44378/Clients", client);
+        await _httpClient.PostAsJsonAsync("https://localhost:44379/Clients", client);
         uriHelper.NavigateTo("clients");
     }
 }

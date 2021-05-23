@@ -36,7 +36,8 @@ else
         {
             authorized = true;
 
-            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            if(!_httpClient.DefaultRequestHeaders.Any(x => x.Key == "Authorization"))
+                _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
         }
     }
 }

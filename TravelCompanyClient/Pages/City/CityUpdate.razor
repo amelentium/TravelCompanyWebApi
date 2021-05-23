@@ -14,14 +14,14 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44378/Cities/{cityId}");
+        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44379/Cities/{cityId}");
     }
 
     async Task EditCity()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {city.Name}'s ({city.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Cities/{cityId}", city);
+            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Cities/{cityId}", city);
             await js.InvokeVoidAsync("alert", $"Updated Successfully!");
             uriHelper.NavigateTo("cities");
         }

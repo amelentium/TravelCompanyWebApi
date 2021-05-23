@@ -3,7 +3,7 @@
 @inject IJSRuntime js
 
 <h3>LogIn</h3>
-<EditForm Model="@logIn" OnValidSubmit="@CreatePass">
+<EditForm Model="@logIn" OnValidSubmit="@LogIn">
     <DataAnnotationsValidator />
     <div class="form-group">
         <label>Name:</label>
@@ -25,12 +25,22 @@
 @code {
     LogIn logIn { get; set; } = new LogIn();
 
-    async Task CreatePass()
+    async Task LogIn()
     {
         var response = await _httpClient.PostAsJsonAsync("https://localhost:44307/login", logIn);
 
-        await js.InvokeVoidAsync("localStorage.setItem", "TravelCompanyToken", await response.Content.ReadAsStringAsync());
+        if (response.IsSuccessStatusCode)
+        {
+            var token = await response.Content.ReadAsStringAsync();
+            await js.InvokeVoidAsync("localStorage.setItem", "TravelCompanyToken", token);
 
-        uriHelper.NavigateTo("/", forceLoad: true);
+            if (_httpClient.DefaultRequestHeaders.Any(x => x.Key == "Authorization"))
+                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            uriHelper.NavigateTo("/", forceLoad: true);
+        }
+        else await js.InvokeVoidAsync("alert", "Invalid login or password inputed");
     }
 }

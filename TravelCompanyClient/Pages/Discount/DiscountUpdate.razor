@@ -14,14 +14,14 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        discount = await _httpClient.GetFromJsonAsync<DiscountDTO>($"https://localhost:44378/Discounts/{discountId}");
+        discount = await _httpClient.GetFromJsonAsync<DiscountDTO>($"https://localhost:44379/Discounts/{discountId}");
     }
 
     async Task EditDiscount()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {discount.Name}'s ({discount.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Discounts/{discountId}", discount);
+            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Discounts/{discountId}", discount);
             await js.InvokeVoidAsync("alert", $"Updated Successfully!");
             uriHelper.NavigateTo("discounts");
         }

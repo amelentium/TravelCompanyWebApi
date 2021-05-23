@@ -12,7 +12,7 @@
 
     async Task CreateClimate()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44378/Climates", climate);
+        await _httpClient.PostAsJsonAsync("https://localhost:44379/Climates", climate);
         uriHelper.NavigateTo("climates");
     }
 }

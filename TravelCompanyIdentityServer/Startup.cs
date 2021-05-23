@@ -77,7 +77,12 @@ namespace TravelCompanyIdentityServer
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-                endpoints.MapDefaultControllerRoute());
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Identity Server is working!");
+                });
+            });
         }
     }
 }
