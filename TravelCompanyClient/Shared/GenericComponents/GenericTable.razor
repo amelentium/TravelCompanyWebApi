@@ -1,6 +1,7 @@
 ﻿@typeparam TEntity
 
 @inject HttpClient _httpClient
+@inject NavigationManager uriHelper
 @inject IJSRuntime js
 
 <h3>@typeof(TEntity).Name.Replace("DTO", "").Replace("Output", "")</h3>
@@ -27,7 +28,7 @@ else
                     {
                         <th>@($"{field.Name} (%)")</th>
                     }
-                    else if(field.Name == "Duration")
+                    else if (field.Name == "Duration")
                     {
                         <th>@($"{field.Name} (Weeks)")</th>
                     }
@@ -42,16 +43,16 @@ else
         <tbody>
             @foreach (TEntity entity in data)
             {
-            <tr>
-                @foreach (var field in entity.GetType().GetProperties())
-                {
-                    <td>@field.GetValue(entity, null)</td>
-                }
-                <td>
-                    <a class="btn btn-success" href="@Page/edit/@entity.GetType().GetProperty("Id").GetValue(entity, null).ToString()">Edit</a>
-                    <button class="btn btn-danger" @onclick="@(() => Delete(@entity.GetType().GetProperty("Id").GetValue(entity, null).ToString()))">Delete</button>
-                </td>
-            </tr>
+                <tr>
+                    @foreach (var field in entity.GetType().GetProperties())
+                    {
+                        <td>@field.GetValue(entity, null)</td>
+                    }
+                    <td>
+                        <a class="btn btn-success" href="@Page/edit/@entity.GetType().GetProperty("Id").GetValue(entity, null).ToString()">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(@entity.GetType().GetProperty("Id").GetValue(entity, null).ToString()))">Delete</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -68,7 +69,18 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        data = await _httpClient.GetFromJsonAsync<TEntity[]>(Url);
+        try
+        {
+            data = await _httpClient.GetFromJsonAsync<TEntity[]>(Url);
+        }
+        catch (Exception e)
+        {
+            await js.InvokeVoidAsync("console.log", e.Message);
+
+            await js.InvokeVoidAsync("window.localStorage.clear");
+
+            uriHelper.NavigateTo("/", forceLoad: true);
+        }
     }
 
     async Task Delete(string Id)
@@ -76,7 +88,7 @@ else
         var entity = data.First(x => x.GetType().GetProperty("Id").GetValue(x, null).ToString() == Id);
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete record {entity.GetType().GetProperty("Id").GetValue(entity, null)}?"))
         {
-            await _httpClient.DeleteAsync($"{Page}/{Id}");
+            await _httpClient.DeleteAsync($"{Url}/{Id}");
             await OnInitializedAsync();
         }
     }

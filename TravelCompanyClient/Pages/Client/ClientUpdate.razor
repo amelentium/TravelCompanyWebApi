@@ -21,9 +21,12 @@
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {client.FirstName}'s ({client.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Clients/{clientId}", client);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
-            uriHelper.NavigateTo("clients");
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44379/Clients/{clientId}", client);
+            if (response.IsSuccessStatusCode)
+            {
+                uriHelper.NavigateTo("clients");
+            }
+            else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
         }
     }
 }

@@ -84,8 +84,6 @@ namespace TrevelCompanyWebApi.Controllers
                 return BadRequest(validation.Errors.Select(x => x.ErrorMessage).ToList());
             }
 
-            await _service.AddCity(city);
-
             await _service.UpdateCity(city);
 
             return Ok();

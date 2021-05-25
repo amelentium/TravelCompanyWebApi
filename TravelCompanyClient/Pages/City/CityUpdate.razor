@@ -21,9 +21,13 @@
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {city.Name}'s ({city.Id}) Record?"))
         {
+            var response =
             await _httpClient.PutAsJsonAsync($"https://localhost:44379/Cities/{cityId}", city);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
-            uriHelper.NavigateTo("cities");
+            if (response.IsSuccessStatusCode)
+            {
+                uriHelper.NavigateTo("cities");
+            }
+            await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
         }
     }
 }

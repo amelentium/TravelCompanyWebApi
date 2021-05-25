@@ -13,8 +13,8 @@ namespace TravelCompanyWebApi.Validator
         {
             RuleFor(x => x)
                 .MustAsync(IsUnique).WithMessage("A hotel with same name is already exist");
-            RuleFor(x => x.City)
-                .MustAsync(IsExist).WithMessage("City with same Id does not exist");
+            //RuleFor(x => x.City)
+            //    .MustAsync(IsExist).WithMessage("City with same Id does not exist");
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Hotel name must be entered")
                 .MinimumLength(2).WithMessage("Hotel name too short")

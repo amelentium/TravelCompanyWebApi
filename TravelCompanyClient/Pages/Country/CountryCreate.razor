@@ -2,6 +2,7 @@
 
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
+@inject IJSRuntime js
 
 <h3>Create</h3>
 <CountryForm ButtonText="Create" country="@country"
@@ -12,7 +13,11 @@
 
     async Task CreateCountry()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44379/Countries", country);
-        uriHelper.NavigateTo("countries");
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44379/Countries", country);
+        if (response.IsSuccessStatusCode)
+        {
+            uriHelper.NavigateTo("countries");
+        }
+        else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
     }
 }

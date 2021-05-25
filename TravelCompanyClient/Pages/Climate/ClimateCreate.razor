@@ -2,6 +2,7 @@
 
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
+@inject IJSRuntime js;
 
 <h3>Create</h3>
 <ClimateForm ButtonText="Create" climate="@climate"
@@ -12,7 +13,11 @@
 
     async Task CreateClimate()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44379/Climates", climate);
-        uriHelper.NavigateTo("climates");
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44379/Climates", climate);
+        if (response.IsSuccessStatusCode)
+        {
+            uriHelper.NavigateTo("climates");
+        }
+        else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
     }
 }

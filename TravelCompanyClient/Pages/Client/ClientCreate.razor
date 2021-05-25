@@ -2,6 +2,7 @@
 
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
+@inject IJSRuntime js;
 
 <h3>Create</h3>
 <ClientForm ButtonText="Create" client="@client"
@@ -12,7 +13,11 @@
 
     async Task CreateClient()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44379/Clients", client);
-        uriHelper.NavigateTo("clients");
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44379/Clients", client);
+        if(response.IsSuccessStatusCode)
+        {
+            uriHelper.NavigateTo("clients");
+        }
+        else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
     }
 }
