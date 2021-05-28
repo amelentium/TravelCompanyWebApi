@@ -5,6 +5,7 @@ namespace TravelCompanyWebApi.Repository.Repository.Interface
 {
     public interface ITourRepository : IGenericRepository<Tour, int>
     {
+        IEnumerable<Tour> GetToursByDurationId(int durationId);
         IEnumerable<Tour> GetToursByHotelId(int hotelId);
     }
 }

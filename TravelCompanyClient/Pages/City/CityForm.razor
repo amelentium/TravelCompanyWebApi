@@ -1,10 +1,11 @@
 ﻿@inject HttpClient _httpClient
+@inject IJSRuntime js
 
 @if (climates == null || countries == null)
 {
     <text>Loading...</text>
 }
-else if (climates.Count == 0 || countries.Count == 0)
+else if (climates.Count() == 0 || countries.Count() == 0)
 {
     <text>No avaible records found.</text>
 }
@@ -51,12 +52,14 @@ else
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private List<CountryDTO> countries;
-    private List<ClimateDTO> climates;
+    private IEnumerable<CountryDTO> countries;
+    private IEnumerable<ClimateDTO> climates;
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>("https://localhost:44378/Countries");
-        climates = await _httpClient.GetFromJsonAsync<List<ClimateDTO>>("https://localhost:44378/Climates");
+        var data = await _httpClient.GetFromJsonAsync<Dictionary<string, IEnumerable<JsonElement>>>("https://localhost:44309/TravelCompany/Home/Cities/Create");
+
+        countries = data.GetValueOrDefault("Countries").toEnumerableOfObject<CountryDTO>();
+        climates = data.GetValueOrDefault("Climates").toEnumerableOfObject<ClimateDTO>(); 
     }
 }

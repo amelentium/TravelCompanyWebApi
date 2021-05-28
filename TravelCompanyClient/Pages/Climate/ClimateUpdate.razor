@@ -14,16 +14,19 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        climate = await _httpClient.GetFromJsonAsync<ClimateDTO>($"https://localhost:44378/Climates/{climateId}");
+        climate = await _httpClient.GetFromJsonAsync<ClimateDTO>($"https://localhost:44379/Climates/{climateId}");
     }
 
     async Task EditClimate()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {climate.Name}'s ({climate.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Climates/{climateId}", climate);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
-            uriHelper.NavigateTo("climates");
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44379/Climates/{climateId}", climate);
+            if (response.IsSuccessStatusCode)
+            {
+                uriHelper.NavigateTo("climates");
+            }
+            else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
         }
     }
 }

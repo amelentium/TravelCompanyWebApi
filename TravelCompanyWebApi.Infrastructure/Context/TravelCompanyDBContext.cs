@@ -5,14 +5,9 @@ namespace TravelCompanyWebApi.Infrastructure.Context
 {
     public partial class TravelCompanyDBContext : DbContext
     {
-        public TravelCompanyDBContext()
-        {
-        }
+        public TravelCompanyDBContext() { }
 
-        public TravelCompanyDBContext(DbContextOptions<TravelCompanyDBContext> options)
-            : base(options)
-        {
-        }
+        public TravelCompanyDBContext(DbContextOptions<TravelCompanyDBContext> options) : base(options) { }
 
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Client> Clients { get; set; }

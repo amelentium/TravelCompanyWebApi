@@ -1,5 +1,7 @@
-﻿@using System.Net.Http
+﻿@using System
+@using System.Net.Http
 @using System.Net.Http.Json
+@using System.Text.Json;
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -11,3 +13,6 @@
 @using TravelCompanyClient.Pages
 @using TravelCompanyClient.Shared
 @using TravelCompanyClient.Shared.GenericComponents
+@using ClientGrpcService
+@using Grpc.Net.Client
+@using Grpc.Net.Client.Web

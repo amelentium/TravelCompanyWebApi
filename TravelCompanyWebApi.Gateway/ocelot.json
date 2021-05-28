@@ -1,0 +1,66 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/Climates/",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Climates/",
+            "UpstreamHttpMethod": [ "GET" ],
+            "Key": "Climates"
+        },
+        {
+            "DownstreamPathTemplate": "/Countries/",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Countries/",
+            "UpstreamHttpMethod": [ "GET" ],
+            "Key": "Countries"
+        },
+        {
+            "DownstreamPathTemplate": "/Cities/",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Cities/",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+        {
+            "DownstreamPathTemplate": "/Cities/{cityId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Cities/{cityId}",
+            "UpstreamHttpMethod": [ "DELETE", "GET", "PUT" ]
+        }
+    ],
+    "Aggregates": [
+        {
+            "RouteKeys": [
+                "Climates",
+                "Countries"
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Home/Cities/Create/"
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:44309"
+    }
+}

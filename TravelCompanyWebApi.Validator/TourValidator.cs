@@ -17,10 +17,10 @@ namespace TravelCompanyWebApi.Validator
         {
             RuleFor(x => x)
                 .MustAsync(IsUnique).WithMessage("A tour with same name is already exist");
-            RuleFor(x => x.Duration)
-                .MustAsync(IsExist).WithMessage("Duration with same Id does not exist");
-            RuleFor(x => x.Hotel)
-                .MustAsync(IsExist).WithMessage("Hotel with same Id does not exist");
+            //RuleFor(x => x.Duration)
+            //    .MustAsync(IsExist).WithMessage("Duration with same Id does not exist");
+            //RuleFor(x => x.Hotel)
+            //    .MustAsync(IsExist).WithMessage("Hotel with same Id does not exist");
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Tour name must be entered")
                 .MinimumLength(10).WithMessage("Tour name too short")

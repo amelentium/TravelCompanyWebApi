@@ -17,10 +17,10 @@ namespace TravelCompanyWebApi.Validator
         {
             RuleFor(x => x)
                 .MustAsync(IsUnique).WithMessage("The discount already applied to the pass");
-            RuleFor(x => x.Discount)
-                .MustAsync(IsExist).WithMessage("Discount with same Id does not exist");
-            RuleFor(x => x.Pass)
-                .MustAsync(IsExist).WithMessage("Pass with same Id does not exist");
+            //RuleFor(x => x.Discount)
+            //    .MustAsync(IsExist).WithMessage("Discount with same Id does not exist");
+            //RuleFor(x => x.Pass)
+            //    .MustAsync(IsExist).WithMessage("Pass with same Id does not exist");
         }
 
         public async Task<bool> IsUnique(PassDiscount passDiscount, CancellationToken cancellationToken)

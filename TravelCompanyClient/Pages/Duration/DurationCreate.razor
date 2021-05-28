@@ -12,7 +12,7 @@
 
     async Task CreateDuration()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44378/Durations", duration);
+        await _httpClient.PostAsJsonAsync("https://localhost:44379/Durations", duration);
         uriHelper.NavigateTo("durations");
     }
 }

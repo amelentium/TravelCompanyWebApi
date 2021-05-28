@@ -6,23 +6,31 @@
 
 <h3>Update</h3>
 <ClientForm ButtonText="Update" client="@client"
-      OnValidSubmit="@EditClient" />
+            OnValidSubmit="@EditClient" />
 
 @code {
     [Parameter] public int clientId { get; set; }
-    ClientDTO client = new ClientDTO();
+    ClientModel client = new ClientModel();
+    Client.ClientClient _grpcClient { get; set; }
 
     protected async override Task OnParametersSetAsync()
     {
-        client = await _httpClient.GetFromJsonAsync<ClientDTO>($"https://localhost:44378/Clients/{clientId}");
+        var channel = GrpcChannel.ForAddress("https://localhost:44805", new GrpcChannelOptions
+        {
+            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+        });
+
+        _grpcClient = new ClientGrpcService.Client.ClientClient(channel);
+
+        client = await _grpcClient.GetClientAsync(new IdRequest { Id = clientId});
     }
 
     async Task EditClient()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {client.FirstName}'s ({client.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44378/Clients/{clientId}", client);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
+            await _grpcClient.UpdateClientAsync(client);
+
             uriHelper.NavigateTo("clients");
         }
     }
