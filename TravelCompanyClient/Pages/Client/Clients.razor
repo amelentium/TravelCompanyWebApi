@@ -1,3 +1,83 @@
 ﻿@page "/clients"
 
-<GenericTable TEntity=ClientDTO Url="https://localhost:44379/Clients" Page="clients" />
+@inject IJSRuntime js
+
+<h3>Clients</h3>
+<div class="form-group">
+    <a class="btn btn-success" href="clients/create"><i class="oi oi-plus"></i>New</a>
+</div>
+<br>
+@if (data == null)
+{
+    <text>Loading...</text>
+}
+else if (data.Count() == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>MiddleName</th>
+                <th>LastName</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in data)
+            {
+            <tr>
+                <td>@client.Id</td>
+                <td>@client.FirstName</td>
+                <td>@client.MiddleName</td>
+                <td>@client.LastName</td>
+                <td>@client.Address</td>
+                <td>@client.PhoneNumber</td>
+                <td>
+                    <a class="btn btn-success" href="clients/edit/@client.Id">Edit</a>
+                    <button class="btn btn-danger" @onclick="@(() => Delete(client.Id))">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string Url { get; set; }
+
+    [Parameter]
+    public string Page { get; set; }
+
+    Client.ClientClient _grpcClient { get; set; }
+
+    IEnumerable<ClientModel> data { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var channel = GrpcChannel.ForAddress("https://localhost:44805", new GrpcChannelOptions
+        {
+            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+        });
+
+        _grpcClient = new Client.ClientClient(channel);
+        data = (await _grpcClient.GetAllClientsAsync(new Empty())).Clients_.AsEnumerable();
+    }
+
+    async Task Delete(int Id)
+    {
+        var client = data.First(c => c.Id == Id);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {client.FirstName} {client.MiddleName} {client.LastName} record ({client.Id})?"))
+        {
+            await _grpcClient.DeleteClientAsync(new IdRequest { Id = Id});
+            await OnInitializedAsync();
+        }
+    }
+}

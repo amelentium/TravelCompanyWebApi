@@ -21,8 +21,7 @@
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {city.Name}'s ({city.Id}) Record?"))
         {
-            var response =
-            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Cities/{cityId}", city);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44309/TravelCompany/Cities/{cityId}", city);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("cities");

@@ -12,7 +12,7 @@ using TravelCompanyWebApi.Service.Interface;
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CityController : ControllerBase
     {
         private readonly ICityService _service;

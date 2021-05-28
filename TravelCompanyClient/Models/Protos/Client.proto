@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option csharp_namespace = "ClientGrpcService";
+
+package client;
+
+service Client {
+  rpc CreateClient (ClientModel) returns (Empty);
+
+  rpc GetClient (IdRequest) returns (ClientModel);
+
+  rpc GetAllClients (Empty) returns (Clients);
+
+  rpc DeleteClient (IdRequest) returns (Empty);
+
+  rpc UpdateClient (ClientModel) returns (Empty);
+}
+
+message Empty {
+
+}
+
+message IdRequest {
+	int32 Id = 1;
+}
+
+message ClientModel {
+    int32 Id = 1;
+    string FirstName = 2;
+    string MiddleName = 3;
+    string LastName = 4;
+    string Address = 5;
+    string PhoneNumber = 6;
+}
+
+message Clients {
+	repeated ClientModel clients = 1;
+}

@@ -9,15 +9,18 @@
             OnValidSubmit="@CreateClient" />
 
 @code {
-    ClientDTO client = new ClientDTO();
+    ClientModel client = new ClientModel();
 
     async Task CreateClient()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44379/Clients", client);
-        if(response.IsSuccessStatusCode)
+        var channel = GrpcChannel.ForAddress("https://localhost:44805", new GrpcChannelOptions
         {
-            uriHelper.NavigateTo("clients");
-        }
-        else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+        });
+
+        var grpcClient = new Client.ClientClient(channel);
+        await grpcClient.CreateClientAsync(client);
+
+        uriHelper.NavigateTo("clients");
     }
 }

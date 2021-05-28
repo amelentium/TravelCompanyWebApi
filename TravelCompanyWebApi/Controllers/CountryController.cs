@@ -14,7 +14,7 @@ using TravelCompanyWebApi.Infrastructure.Entity;
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CountryController : ControllerBase
     {
         private readonly IMediator _mediator;

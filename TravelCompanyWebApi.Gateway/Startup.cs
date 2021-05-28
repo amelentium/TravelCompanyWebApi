@@ -13,6 +13,16 @@ namespace TravelCompanyWebApi.Gateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: "MyAllowSpecificOrigins", builder =>
+                {
+                    builder.WithOrigins("https://localhost:44303")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -21,6 +31,8 @@ namespace TravelCompanyWebApi.Gateway
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseRouting();
 

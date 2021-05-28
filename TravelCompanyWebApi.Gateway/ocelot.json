@@ -10,102 +10,54 @@
                 }
             ],
             "UpstreamPathTemplate": "/TravelCompany/Climates/",
-            "UpstreamHttpMethod": [ "POST", "GET" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Climates/{climateId}",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44379
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Climates/{climateId}",
-            "UpstreamHttpMethod": [ "DELETE", "GET", "PUT" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Passes/",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44301
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Passes/",
-            "UpstreamHttpMethod": [ "GET", "PUT" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Passes/{passId}",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44301
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Passes/{passId}",
-            "UpstreamHttpMethod": [ "DELETE", "GET", "PUT" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Passes/Client/{clientId}",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44301
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Passes/Client/{clientId}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Passes/Tour/{tourId}",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44301
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Passes/Tour/{tourId}",
-            "UpstreamHttpMethod": [ "GET" ]
-        },
-        {
-            "DownstreamPathTemplate": "/Climates/",
-            "DownstreamScheme": "https",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 44379
-                }
-            ],
-            "UpstreamPathTemplate": "/TravelCompany/Home/Climates",
             "UpstreamHttpMethod": [ "GET" ],
             "Key": "Climates"
         },
         {
-            "DownstreamPathTemplate": "/Passes/",
+            "DownstreamPathTemplate": "/Countries/",
             "DownstreamScheme": "https",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 44301
+                    "Port": 44379
                 }
             ],
-            "UpstreamPathTemplate": "/TravelCompany/Home/Passes",
+            "UpstreamPathTemplate": "/TravelCompany/Countries/",
             "UpstreamHttpMethod": [ "GET" ],
-            "Key": "Passes"
+            "Key": "Countries"
+        },
+        {
+            "DownstreamPathTemplate": "/Cities/",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Cities/",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+        {
+            "DownstreamPathTemplate": "/Cities/{cityId}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 44379
+                }
+            ],
+            "UpstreamPathTemplate": "/TravelCompany/Cities/{cityId}",
+            "UpstreamHttpMethod": [ "DELETE", "GET", "PUT" ]
         }
     ],
     "Aggregates": [
         {
             "RouteKeys": [
                 "Climates",
-                "Passes"
+                "Countries"
             ],
-            "UpstreamPathTemplate": "/TravelCompany/Home/"
+            "UpstreamPathTemplate": "/TravelCompany/Home/Cities/Create/"
         }
     ],
     "GlobalConfiguration": {
