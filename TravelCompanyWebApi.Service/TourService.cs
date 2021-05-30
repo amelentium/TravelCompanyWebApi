@@ -42,6 +42,11 @@ namespace TravelCompanyWebApi.Service
             return await _repository.Get();
         }
 
+        public IEnumerable<Tour> GetToursByClimateName(string climateName)
+        {
+            return _repository.GetToursByClimateName(climateName);
+        }
+
         public IEnumerable<Tour> GetToursByDurationId(byte durationId)
         {
             return _repository.GetToursByHotelId(durationId);
