@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using TravelCompanyWebApi.Service.Interface;
 namespace TrevelCompanyWebApi.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TourController : ControllerBase
     {
         private readonly ITourService _service;
@@ -87,6 +88,22 @@ namespace TrevelCompanyWebApi.Controllers
             await _service.UpdateTour(tour);
 
             return Ok();
+        }
+
+        [Route("Tours/Climate/{climateName}")]
+        [HttpGet]
+        public IActionResult GetToursByClimateName(string climateName)
+        {
+            try
+            {
+                var result = _service.GetToursByClimateName(climateName);
+
+                return Ok(_mapper.Map<IEnumerable<TourDTO>>(result));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [Route("Tours/Duration/{id}")]

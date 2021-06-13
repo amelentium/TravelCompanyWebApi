@@ -22,7 +22,7 @@ namespace IntegrationTestProject
         }
 
         [Fact]
-        public async Task ClientController_GetAll_ReturnsOK()
+        public async Task GetAllClimates_DBContainsRecord_ReturnsOKNotEmptyList()
         {
             // Arrange
             var url = "Climates";
@@ -38,7 +38,7 @@ namespace IntegrationTestProject
         }
 
         [Fact]
-        public async Task ClientController_GetByExistentId_ReturnsOk()
+        public async Task GetClimateById_ExistentId_ReturnsOkNotNullClimate()
         {
             // Arrange
             var url = "Climates/1";
@@ -46,12 +46,15 @@ namespace IntegrationTestProject
             // Act
             var response = await _client.GetAsync(url);
 
+            var result = JsonSerializer.Deserialize<ClimateDTO>(await response.Content.ReadAsStringAsync());
+
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(result);
         }
 
         [Fact]
-        public async Task ClientController_GetByNonExistentId_ReturnsNoContent()
+        public async Task GetClimateById_NonExistentId_ReturnsNoContent()
         {
             // Arrange
             var url = "Climates/0";
@@ -64,11 +67,11 @@ namespace IntegrationTestProject
         }
 
         [Fact]
-        public async Task ClientController_PostValidClimate_ReturnsOk()
+        public async Task PostClimate_ValidClimate_ReturnsOk()
         {
             // Arrange
             var url = "Climates/";
-            var content = new StringContent(JsonSerializer.Serialize(new ClimateDTO { Name = "Mild"}), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(new ClimateDTO { Name = "Continental" }), Encoding.UTF8, "application/json");
 
             // Act
             var response = await _client.PostAsync(url, content);
@@ -78,7 +81,7 @@ namespace IntegrationTestProject
         }
 
         [Fact]
-        public async Task ClientController_PostInvalidClimate_ReturnsBadRequest()
+        public async Task PostClimate_InvalidClimate_ReturnsBadRequest()
         {
             // Arrange
             var url = "Climates/";
