@@ -21,9 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TravelCompanyWebApi.Infrastructure\TravelCompanyWebApi.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj" />
-    <ProjectReference Include="..\..\TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj" />
+    <ProjectReference Include="..\..\Back\Common data service\TravelCompanyWebApi.Infrastructure\TravelCompanyWebApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Back\Common data service\TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj" />
   </ItemGroup>
 
 </Project>

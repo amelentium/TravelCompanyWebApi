@@ -1,7 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,6 +47,7 @@ namespace ClientGrpcService.Repository
         {
             await _collection.ReplaceOneAsync(c => c.Id.Equals(client.Id), client);
         }
+
         public async Task<int> GetId()
         {
             var data = await _client.GetDatabase("TravelCompany").GetCollection<BsonDocument>("EntityId").AsQueryable().ToListAsync();

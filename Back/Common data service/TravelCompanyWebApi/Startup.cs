@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
 using TravelCompanyWebApi.Infrastructure.Entity;
@@ -34,7 +35,8 @@ namespace TravelCompanyWebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TravelCompanyDBContext>();
+            services.AddDbContext<TravelCompanyDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
             #region Transients
             #region Repositories
