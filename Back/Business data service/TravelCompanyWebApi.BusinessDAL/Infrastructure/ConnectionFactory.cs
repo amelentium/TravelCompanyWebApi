@@ -16,7 +16,6 @@ namespace TravelCompanyWebApi.BusinessDAL.Infrastructure
         public void SetConnection(string connectionString)
         {
             _connectionString = connectionString;
-
         }
 
         public IDbConnection GetSqlConnection

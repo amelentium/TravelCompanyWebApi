@@ -14,12 +14,12 @@ namespace TravelCompanyWebApi.Validator
             _context = context;
         }
 
-        public async Task<bool> IsExist<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
+        public async Task<bool> IsExist(TEntity entity, CancellationToken cancellationToken)
         {
             return await _context.Set<TEntity>().ContainsAsync(entity, cancellationToken);
         }
 
-        public async Task<bool> IsNotExist<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
+        public async Task<bool> IsNotExist(TEntity entity, CancellationToken cancellationToken)
         {
             return !await _context.Set<TEntity>().ContainsAsync(entity, cancellationToken);
         }
