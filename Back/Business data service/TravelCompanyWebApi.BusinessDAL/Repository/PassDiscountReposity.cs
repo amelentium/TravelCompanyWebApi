@@ -14,18 +14,14 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
 
         public async Task<IEnumerable<PassDiscount>> GetPassDiscountsByDiscountId(int discountId)
         {
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                return await db.QueryAsync<PassDiscount>("select * from " + _tableName + " where DiscountId = " + discountId);
-            }
+            using var db = _connectionFactory.GetSqlConnection;
+            return await db.QueryAsync<PassDiscount>("select * from " + _tableName + " where DiscountId = " + discountId);
         }
 
         public async Task<IEnumerable<PassDiscount>> GetPassDiscountsByPassId(int passId)
         {
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                return await db.QueryAsync<PassDiscount>("select * from " + _tableName + " where PassId = " + passId);
-            }
+            using var db = _connectionFactory.GetSqlConnection;
+            return await db.QueryAsync<PassDiscount>("select * from " + _tableName + " where PassId = " + passId);
         }
     }
 }

@@ -59,7 +59,7 @@ else
     {
         var data = await _httpClient.GetFromJsonAsync<Dictionary<string, IEnumerable<JsonElement>>>("https://localhost:44309/TravelCompany/Home/Cities/Create");
 
-        countries = data.GetValueOrDefault("Countries").toEnumerableOfObject<CountryDTO>();
-        climates = data.GetValueOrDefault("Climates").toEnumerableOfObject<ClimateDTO>(); 
+        countries = data.GetValueOrDefault("Countries").ToEnumerableOfObject<CountryDTO>();
+        climates = data.GetValueOrDefault("Climates").ToEnumerableOfObject<ClimateDTO>(); 
     }
 }

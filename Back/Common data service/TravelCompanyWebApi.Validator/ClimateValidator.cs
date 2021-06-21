@@ -22,7 +22,7 @@ namespace TravelCompanyWebApi.Validator
 
         public async Task<bool> IsUnique(Climate climate, CancellationToken cancellationToken)
         {
-            return !await _context.Set<Climate>().AnyAsync(c => c.Name == climate.Name && c.Id != climate.Id);
+            return !await _context.Set<Climate>().AnyAsync(c => c.Name == climate.Name && c.Id != climate.Id, CancellationToken.None);
         }
     }
 }
