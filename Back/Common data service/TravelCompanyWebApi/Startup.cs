@@ -12,6 +12,7 @@ using TravelCompanyWebApi.CQRS;
 using TravelCompanyWebApi.Infrastructure.Context;
 using TravelCompanyWebApi.Infrastructure.Entity;
 using TravelCompanyWebApi.Mapper;
+using TravelCompanyWebApi.MessageHandlers;
 using TravelCompanyWebApi.Repository.Repository;
 using TravelCompanyWebApi.Repository.Repository.Interface;
 using TravelCompanyWebApi.Repository.UnitOfWork;
@@ -106,6 +107,8 @@ namespace TravelCompanyWebApi
             services.AddAutoMapper(typeof(TravelCompanyMapper));
 
             services.AddMediatR(typeof(MediatRStartup).Assembly);
+
+            services.AddHostedService<ClientMessageHandler>();
 
             #region Swagger
             services.AddSwaggerGen(c =>

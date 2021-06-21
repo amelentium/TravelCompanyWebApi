@@ -8,12 +8,12 @@ namespace UnitTestProject.Mocks
 {
     public class MockClimateRepository : Mock<IClimateRepository>
     {
-        public async Task<MockClimateRepository> MockGetAll(IEnumerable<Climate> result)
+        public Task<MockClimateRepository> MockGetAll(IEnumerable<Climate> result)
         {
             Setup(x => x.Get())
                 .ReturnsAsync(result);
 
-            return this;
+            return Task.FromResult(this);
         }
 
         public MockClimateRepository VerifyGetAll(Times times)
@@ -22,12 +22,12 @@ namespace UnitTestProject.Mocks
 
             return this;
         }
-        public async Task<MockClimateRepository> MockGetById(Climate result)
+        public Task<MockClimateRepository> MockGetById(Climate result)
         {
             Setup(x => x.GetById(It.IsAny<byte>()))
                 .ReturnsAsync(result);
 
-            return this;
+            return Task.FromResult(this);
         }
 
         public MockClimateRepository VerifyGetById(Times times)

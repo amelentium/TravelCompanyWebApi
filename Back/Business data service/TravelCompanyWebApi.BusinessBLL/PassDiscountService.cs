@@ -8,7 +8,7 @@ namespace TravelCompanyWebApi.BusinessBLL
 {
     public class PassDiscountService : IPassDiscountService
     {
-        IUnitOfWork _unitOfWork;
+        readonly IUnitOfWork _unitOfWork;
         public PassDiscountService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

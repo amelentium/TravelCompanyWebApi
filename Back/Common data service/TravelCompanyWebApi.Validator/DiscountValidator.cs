@@ -24,7 +24,7 @@ namespace TravelCompanyWebApi.Validator
 
         public async Task<bool> IsUnique(Discount discount, CancellationToken cancellationToken)
         {
-            return !await _context.Set<Discount>().AnyAsync(d => d.Name == discount.Name && d.Id != discount.Id);
+            return !await _context.Set<Discount>().AnyAsync(d => d.Name == discount.Name && d.Id != discount.Id, CancellationToken.None);
         }
     }
 }

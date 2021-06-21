@@ -5,9 +5,9 @@ namespace TravelCompanyClient.Shared
 {
     public static class EnumExtentions
 	{
-		public static IEnumerable<T> toEnumerableOfObject<T>(this IEnumerable<JsonElement> elements)
+		public static IEnumerable<T> ToEnumerableOfObject<T>(this IEnumerable<JsonElement> elements)
 		{
-			List<T> list = new List<T>();
+			List<T> list = new();
 
 			foreach (var element in elements)
 			{

@@ -8,7 +8,7 @@ namespace TravelCompanyWebApi.BusinessBLL
 {
     public class TourService : ITourService
     {
-        IUnitOfWork _unitOfWork;
+        readonly IUnitOfWork _unitOfWork;
         public TourService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

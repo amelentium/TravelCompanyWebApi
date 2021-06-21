@@ -8,7 +8,7 @@ namespace TravelCompanyWebApi.BusinessBLL
 {
     public class DiscountService : IDiscountService
     {
-        IUnitOfWork _unitOfWork;
+        readonly IUnitOfWork _unitOfWork;
         public DiscountService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

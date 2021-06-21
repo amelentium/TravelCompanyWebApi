@@ -39,7 +39,7 @@ namespace TravelCompanyWebApi.Validator
 
         public async Task<bool> IsUnique(Client client, CancellationToken cancellationToken)
         {
-            return !await _context.Set<Client>().AnyAsync(c => c.PhoneNumber == client.PhoneNumber && c.Id != client.Id);
+            return !await _context.Set<Client>().AnyAsync(c => c.PhoneNumber == client.PhoneNumber && c.Id != client.Id, CancellationToken.None);
         }
     }
 }

@@ -29,39 +29,33 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
             var stringOfProperties = string.Join(", ", GetProperties(entity));
             var query = "SP_InsertRecordToTable";
 
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                var Id = await db.ExecuteAsync(
-                    sql: query,
-                    param: new { P_tableName = _tableName, P_columnsString = stringOfColumns, P_propertiesString = stringOfProperties },
-                    commandType: CommandType.StoredProcedure);
-            }
+            using var db = _connectionFactory.GetSqlConnection;
+            var Id = await db.ExecuteAsync(
+                sql: query,
+                param: new { P_tableName = _tableName, P_columnsString = stringOfColumns, P_propertiesString = stringOfProperties },
+                commandType: CommandType.StoredProcedure);
         }
 
         public async Task<TEntity> Get(TId Id)
         {
             var query = "SP_GetRecordByIdFromTable";
 
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                var result = await db.QueryAsync<TEntity>(query,
-                    new { P_tableName = _tableName, P_Id = Id },
-                    commandType: CommandType.StoredProcedure);
+            using var db = _connectionFactory.GetSqlConnection;
+            var result = await db.QueryAsync<TEntity>(query,
+                new { P_tableName = _tableName, P_Id = Id },
+                commandType: CommandType.StoredProcedure);
 
-                return result.FirstOrDefault();
-            }
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
             var query = "SP_GetAllRecordsFromTable";
 
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                return await db.QueryAsync<TEntity>(query,
-                    new { P_tableName = _tableName },
-                    commandType: CommandType.StoredProcedure);
-            }
+            using var db = _connectionFactory.GetSqlConnection;
+            return await db.QueryAsync<TEntity>(query,
+                new { P_tableName = _tableName },
+                commandType: CommandType.StoredProcedure);
         }
 
         public async Task Update(TEntity entity, TId Id)
@@ -71,30 +65,26 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
             columns = columns.Zip(properties, (column, property) => column + " = " + property);
             var stringOfColumns = string.Join(", ", columns);
 
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                var query = "SP_UpdateRecordInTable";
+            using var db = _connectionFactory.GetSqlConnection;
+            var query = "SP_UpdateRecordInTable";
 
-                await db.ExecuteAsync(
-                    sql: query,
-                    param: new { P_tableName = _tableName, P_columnsString = stringOfColumns, P_Id = Id },
-                    commandType: CommandType.StoredProcedure);
-            }
+            await db.ExecuteAsync(
+                sql: query,
+                param: new { P_tableName = _tableName, P_columnsString = stringOfColumns, P_Id = Id },
+                commandType: CommandType.StoredProcedure);
         }
 
         public async Task Delete(TId Id)
         {
-            using (var db = _connectionFactory.GetSqlConnection)
-            {
-                var query = "SP_DeleteRecordFromTable";
-                await db.ExecuteAsync(
-                    sql: query,
-                    param: new { P_tableName = _tableName, P_Id = Id },
-                    commandType: CommandType.StoredProcedure);
-            }
+            using var db = _connectionFactory.GetSqlConnection;
+            var query = "SP_DeleteRecordFromTable";
+            await db.ExecuteAsync(
+                sql: query,
+                param: new { P_tableName = _tableName, P_Id = Id },
+                commandType: CommandType.StoredProcedure);
         }
 
-        private IEnumerable<string> GetColumns()
+        private static IEnumerable<string> GetColumns()
         {
             return typeof(TEntity)
                     .GetProperties()
@@ -102,7 +92,7 @@ namespace TravelCompanyWebApi.BusinessDAL.Repository
                     .Select(e => e.Name);
         }
 
-        private IEnumerable<string> GetProperties(TEntity entity)
+        private static IEnumerable<string> GetProperties(TEntity entity)
         {
             return typeof(TEntity)
                     .GetProperties()
