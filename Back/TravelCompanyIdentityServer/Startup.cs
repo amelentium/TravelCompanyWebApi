@@ -41,7 +41,7 @@ namespace TravelCompanyIdentityServer
                 })
                 .AddDeveloperSigningCredential();
 
-            IdentityConfiguration.Init(services.BuildServiceProvider().CreateScope().ServiceProvider, false);
+            IdentityConfiguration.Init(services.CreateScope().ServiceProvider, false);
 
             services.AddCors(options =>
             {

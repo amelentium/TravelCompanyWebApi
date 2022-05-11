@@ -1,25 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.2.3" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TravelCompanyWebApi.CQRS\TravelCompanyWebApi.CQRS.csproj" />
-    <ProjectReference Include="..\TravelCompanyWebApi.Infrastructure\TravelCompanyWebApi.Infrastructure.csproj" />
-    <ProjectReference Include="..\TravelCompanyWebApi.Mapper\TravelCompanyWebApi.Mapper.csproj" />
     <ProjectReference Include="..\TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj" />
-    <ProjectReference Include="..\TravelCompanyWebApi.Service\TravelCompanyWebApi.Service.csproj" />
-    <ProjectReference Include="..\TravelCompanyWebApi.Validator\TravelCompanyWebApi.Validator.csproj" />
   </ItemGroup>
 
 </Project>

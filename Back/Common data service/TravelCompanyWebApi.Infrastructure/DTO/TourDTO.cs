@@ -6,7 +6,7 @@ namespace TravelCompanyWebApi.Infrastructure.DTO
     {
         public int Id { get; set; }
         public int? HotelId { get; set; }
-        public byte? DurationId { get; set; }
+        public byte? Duration { get; set; }
         public string Name { get; set; }
         public DateTime? StartDate { get; set; }
         public int? Price { get; set; }
