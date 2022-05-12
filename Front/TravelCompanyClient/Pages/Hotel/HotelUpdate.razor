@@ -14,16 +14,22 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        hotel = await _httpClient.GetFromJsonAsync<HotelDTO>($"https://localhost:44379/Hotels/{hotelId}");
+        hotel = await _httpClient.GetFromJsonAsync<HotelDTO>($"https://localhost:44445/Hotels/{hotelId}");
     }
 
     async Task EditHotel()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {hotel.Name}'s ({hotel.Id}) Record?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Hotels/{hotelId}", hotel);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
-            uriHelper.NavigateTo("hotels");
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Hotels/{hotelId}", hotel);
+            if (response.IsSuccessStatusCode)
+            {
+                uriHelper.NavigateTo("hotels");
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            }
         }
     }
 }

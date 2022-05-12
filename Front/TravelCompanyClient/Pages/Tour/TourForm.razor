@@ -71,8 +71,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        hotels = await _httpClient.GetFromJsonAsync<List<HotelDTO>>("https://localhost:44379/Hotels");
-        durations = await _httpClient.GetFromJsonAsync<List<DurationDTO>>("https://localhost:44379/Durations");
+        hotels = await _httpClient.GetFromJsonAsync<List<HotelDTO>>("https://localhost:44445/Hotels");
+        durations = await _httpClient.GetFromJsonAsync<List<DurationDTO>>("https://localhost:44445/Durations");
     }
 }
 

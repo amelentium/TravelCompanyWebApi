@@ -12,7 +12,7 @@
 
     async Task CreatePass()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44379/Passes", pass);
+        await _httpClient.PostAsJsonAsync("https://localhost:44445/Passes", pass);
         uriHelper.NavigateTo("passes");
     }
 }

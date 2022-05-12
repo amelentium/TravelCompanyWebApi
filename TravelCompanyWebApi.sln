@@ -7,29 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Back", "Back", "{B00BC810-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front", "Front", "{A481E4A6-8D33-4FF5-AE7B-B93E82ABC0F0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business data servise", "Business data servise", "{6CC35EEF-9DB0-4592-AAF4-27644BE49081}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common data service", "Common data service", "{8C965D6D-F938-4E84-80EE-ECB004E62B38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyClient", "Front\TravelCompanyClient\TravelCompanyClient.csproj", "{9A784C36-7B02-4B90-BCA0-E556A770884D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.BusinessDAL", "Back\Business data service\TravelCompanyWebApi.BusinessDAL\TravelCompanyWebApi.BusinessDAL.csproj", "{34BC2585-5CC1-49A1-83F2-B6BC1052D037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompany.Domain", "Domain\TravelCompany.Domain.csproj", "{C77C2A27-304B-4F4F-A168-105CA2AADB30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.BusinessWebApi", "Back\Business data service\TravelCompanyWebApi.BusinessWebApi\TravelCompanyWebApi.BusinessWebApi.csproj", "{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompany.Infrastructure", "Infrastructure\TravelCompany.Infrastructure.csproj", "{27FA78DA-AB2C-4515-8C57-705B4CB32D4E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.BusinessBLL", "Back\Business data service\TravelCompanyWebApi.BusinessBLL\TravelCompanyWebApi.BusinessBLL.csproj", "{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompany.API", "TravelCompany.API\TravelCompany.API.csproj", "{6704341B-BA66-4087-8747-152264D76570}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi", "Back\Common data service\TravelCompanyWebApi\TravelCompanyWebApi.csproj", "{547FBC4A-BF63-4C5E-A32E-112B624A62B9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompanyWebApi.Repository", "Back\Common data service\TravelCompanyWebApi.Repository\TravelCompanyWebApi.Repository.csproj", "{8DE47938-C3F8-4077-834E-355236D4B5F7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompany.Domain", "Domain\TravelCompany.Domain.csproj", "{C77C2A27-304B-4F4F-A168-105CA2AADB30}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompany.Infrastructure", "Infrastructure\TravelCompany.Infrastructure.csproj", "{27FA78DA-AB2C-4515-8C57-705B4CB32D4E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompany.API", "TravelCompany.API\TravelCompany.API.csproj", "{6704341B-BA66-4087-8747-152264D76570}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompany.Application", "Application\TravelCompany.Application.csproj", "{A7FC794F-D385-4562-8FBF-45A7563BA6C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompany.Application", "Application\TravelCompany.Application.csproj", "{A7FC794F-D385-4562-8FBF-45A7563BA6C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,26 +27,6 @@ Global
 		{9A784C36-7B02-4B90-BCA0-E556A770884D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A784C36-7B02-4B90-BCA0-E556A770884D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A784C36-7B02-4B90-BCA0-E556A770884D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34BC2585-5CC1-49A1-83F2-B6BC1052D037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34BC2585-5CC1-49A1-83F2-B6BC1052D037}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34BC2585-5CC1-49A1-83F2-B6BC1052D037}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34BC2585-5CC1-49A1-83F2-B6BC1052D037}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{547FBC4A-BF63-4C5E-A32E-112B624A62B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{547FBC4A-BF63-4C5E-A32E-112B624A62B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{547FBC4A-BF63-4C5E-A32E-112B624A62B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{547FBC4A-BF63-4C5E-A32E-112B624A62B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DE47938-C3F8-4077-834E-355236D4B5F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DE47938-C3F8-4077-834E-355236D4B5F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DE47938-C3F8-4077-834E-355236D4B5F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DE47938-C3F8-4077-834E-355236D4B5F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C77C2A27-304B-4F4F-A168-105CA2AADB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C77C2A27-304B-4F4F-A168-105CA2AADB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C77C2A27-304B-4F4F-A168-105CA2AADB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -82,14 +48,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6CC35EEF-9DB0-4592-AAF4-27644BE49081} = {B00BC810-53DE-4361-A048-863AFA5B3235}
-		{8C965D6D-F938-4E84-80EE-ECB004E62B38} = {B00BC810-53DE-4361-A048-863AFA5B3235}
 		{9A784C36-7B02-4B90-BCA0-E556A770884D} = {A481E4A6-8D33-4FF5-AE7B-B93E82ABC0F0}
-		{34BC2585-5CC1-49A1-83F2-B6BC1052D037} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
-		{59EB3D19-CC0F-4EFA-AE83-0AD4F9D9BAE2} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
-		{88D25FEC-2A5D-49B3-AFD9-148B777DC9BC} = {6CC35EEF-9DB0-4592-AAF4-27644BE49081}
-		{547FBC4A-BF63-4C5E-A32E-112B624A62B9} = {8C965D6D-F938-4E84-80EE-ECB004E62B38}
-		{8DE47938-C3F8-4077-834E-355236D4B5F7} = {8C965D6D-F938-4E84-80EE-ECB004E62B38}
 		{C77C2A27-304B-4F4F-A168-105CA2AADB30} = {B00BC810-53DE-4361-A048-863AFA5B3235}
 		{27FA78DA-AB2C-4515-8C57-705B4CB32D4E} = {B00BC810-53DE-4361-A048-863AFA5B3235}
 		{6704341B-BA66-4087-8747-152264D76570} = {B00BC810-53DE-4361-A048-863AFA5B3235}

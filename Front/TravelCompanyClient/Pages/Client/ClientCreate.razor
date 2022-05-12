@@ -2,25 +2,22 @@
 
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
-@inject IJSRuntime js;
+@inject IJSRuntime js
 
 <h3>Create</h3>
-<ClientForm ButtonText="Create" client="@client"
-            OnValidSubmit="@CreateClient" />
+<ClientForm ButtonText="Create" city="@client"
+          OnValidSubmit="@CreateClient" />
 
 @code {
-    ClientModel client = new ClientModel();
+    ClientDTO client = new ClientDTO();
 
     async Task CreateClient()
     {
-        var channel = GrpcChannel.ForAddress("https://localhost:44805", new GrpcChannelOptions
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/TravelCompany/Clients", client);
+        if (response.IsSuccessStatusCode)
         {
-            HttpHandler = new GrpcWebHandler(new HttpClientHandler())
-        });
-
-        var grpcClient = new Client.ClientClient(channel);
-        await grpcClient.CreateClientAsync(client);
-
-        uriHelper.NavigateTo("clients");
+            uriHelper.NavigateTo("сlients");
+        }
+        else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
     }
 }

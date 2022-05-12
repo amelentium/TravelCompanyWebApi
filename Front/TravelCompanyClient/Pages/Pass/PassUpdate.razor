@@ -14,16 +14,22 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        pass = await _httpClient.GetFromJsonAsync<PassInputDTO>($"https://localhost:44379/Passes/{passId}");
+        pass = await _httpClient.GetFromJsonAsync<PassInputDTO>($"https://localhost:44445/Passes/{passId}");
     }
 
     async Task EditPass()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {pass.Id}?"))
         {
-            await _httpClient.PutAsJsonAsync($"https://localhost:44379/Passes/{passId}", pass);
-            await js.InvokeVoidAsync("alert", $"Updated Successfully!");
-            uriHelper.NavigateTo("passes");
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Passes/{passId}", pass);
+            if (response.IsSuccessStatusCode)
+            {
+                uriHelper.NavigateTo("passes");
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            }
         }
     }
 }

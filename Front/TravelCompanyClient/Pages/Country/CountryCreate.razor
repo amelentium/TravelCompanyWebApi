@@ -13,7 +13,7 @@
 
     async Task CreateCountry()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44379/Countries", country);
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Countries", country);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("countries");

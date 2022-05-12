@@ -14,7 +14,7 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44379/Cities/{cityId}");
+        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44445/Cities/{cityId}");
     }
 
     async Task EditCity()
@@ -26,7 +26,10 @@
             {
                 uriHelper.NavigateTo("cities");
             }
-            await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            else
+            {
+                await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            }
         }
     }
 }

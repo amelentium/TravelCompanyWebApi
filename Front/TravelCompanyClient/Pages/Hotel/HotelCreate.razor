@@ -12,7 +12,7 @@
 
     async Task CreateHotel()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44379/Hotels", hotel);
+        await _httpClient.PostAsJsonAsync("https://localhost:44445/Hotels", hotel);
         uriHelper.NavigateTo("hotels");
     }
 }

@@ -2,42 +2,14 @@
 @inject HttpClient _httpClient
 @inject IJSRuntime js
 
-@if (authorized)
-{
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
-        </div>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-        <div class="main">
-            <div class="content px-4">
-                @Body
-            </div>
+    <div class="main">
+        <div class="content px-4">
+            @Body
         </div>
     </div>
-}
-else
-{
-    <div class="page">
-        <div style="margin: auto; text-align: center;">
-                <Login />
-        </div>
-    </div>
-}
-
-@code {
-    bool authorized = false;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var token = await js.InvokeAsync<string>("localStorage.getItem", "TravelCompanyToken");
-
-        if (!string.IsNullOrEmpty(token))
-        {
-            authorized = true;
-
-            if(!_httpClient.DefaultRequestHeaders.Any(x => x.Key == "Authorization"))
-                _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        }
-    }
-}
+</div>

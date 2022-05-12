@@ -9,9 +9,13 @@
     <a class="btn btn-success" href="@Page/create"><i class="oi oi-plus"></i>New</a>
 </div>
 <br>
-@if (data == null)
+@if (loading && data == null)
 {
     <text>Loading...</text>
+}
+else if (data == null)
+{
+    <text>Data fetching error.</text>
 }
 else if (data.Length == 0)
 {
@@ -30,7 +34,7 @@ else
                     }
                     else if (field.Name == "Duration")
                     {
-                        <th>@($"{field.Name} (Weeks)")</th>
+                        <th>@($"{field.Name} (Days)")</th>
                     }
                     else
                     {
@@ -67,6 +71,8 @@ else
 
     TEntity[] data { get; set; }
 
+    bool loading { get; set; } = true;
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -78,8 +84,10 @@ else
             await js.InvokeVoidAsync("console.log", e.Message);
 
             await js.InvokeVoidAsync("window.localStorage.clear");
-
-            uriHelper.NavigateTo("/", forceLoad: true);
+        }
+        finally 
+        {
+            loading = false;
         }
     }
 

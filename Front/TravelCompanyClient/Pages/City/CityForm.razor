@@ -1,11 +1,11 @@
 ﻿@inject HttpClient _httpClient
 @inject IJSRuntime js
 
-@if (climates == null || countries == null)
+@if (countries == null)
 {
     <text>Loading...</text>
 }
-else if (climates.Count() == 0 || countries.Count() == 0)
+else if (countries.Count() == 0)
 {
     <text>No avaible records found.</text>
 }
@@ -18,9 +18,9 @@ else
             <div>
                 <InputSelect @bind-Value="@city.ClimateId">
                     <option></option>
-                    @foreach (var climate in climates)
+                    @foreach (var climate in Enum.GetValues(typeof(Climate)))
                         {
-                        <option value="@climate.Id">@climate.Name</option>
+                        <option value="@climate">@climate</option>
                         }
                 </InputSelect>
             </div>
@@ -53,13 +53,11 @@ else
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private IEnumerable<CountryDTO> countries;
-    private IEnumerable<ClimateDTO> climates;
 
     protected override async Task OnInitializedAsync()
     {
         var data = await _httpClient.GetFromJsonAsync<Dictionary<string, IEnumerable<JsonElement>>>("https://localhost:44309/TravelCompany/Home/Cities/Create");
 
         countries = data.GetValueOrDefault("Countries").ToEnumerableOfObject<CountryDTO>();
-        climates = data.GetValueOrDefault("Climates").ToEnumerableOfObject<ClimateDTO>(); 
     }
 }

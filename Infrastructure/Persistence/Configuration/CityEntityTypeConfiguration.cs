@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TravelCompany.Domain.Entity;
+using TravelCompany.Domain.Enum;
 
 namespace TravelCompany.Infrastructure.Persistence.Configuration
 {
@@ -15,7 +16,10 @@ namespace TravelCompany.Infrastructure.Persistence.Configuration
                 .HasMaxLength(20);
 
             builder.Property(e => e.Climate)
-                .HasMaxLength(20);
+                .HasMaxLength(20)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => Enum.Parse<Climate>(v));
 
             builder.HasOne(d => d.Country)
                 .WithMany(p => p.Cities)
