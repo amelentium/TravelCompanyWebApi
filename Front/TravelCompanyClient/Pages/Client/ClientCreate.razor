@@ -13,7 +13,7 @@
 
     async Task CreateClient()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/TravelCompany/Clients", client);
+        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Clients", client);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("сlients");

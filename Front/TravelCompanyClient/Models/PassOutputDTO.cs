@@ -7,7 +7,7 @@
         public int? TourId { get; set; }
         public int? Count { get; set; }
         public double? TotalDiscount { get; set; }
-        public int? FullPrice { get; set; }
+        public double? FullPrice { get; set; }
         public double? FinalPrice { get; set; }
     }
 }

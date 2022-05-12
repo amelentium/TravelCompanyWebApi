@@ -51,8 +51,8 @@ else
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private List<ClientDTO> clients;
-    private List<TourDTO> tours;
+    private List<ClientDTO> clients = new();
+    private List<TourDTO> tours = new();
 
     protected override async Task OnInitializedAsync()
     {

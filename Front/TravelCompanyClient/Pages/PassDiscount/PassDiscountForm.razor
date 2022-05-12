@@ -46,8 +46,8 @@ else
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private List<DiscountDTO> discounts;
-    private List<PassOutputDTO> passes;
+    private List<DiscountDTO> discounts = new();
+    private List<PassOutputDTO> passes = new();
 
     protected override async Task OnInitializedAsync()
     {

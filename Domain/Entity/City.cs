@@ -8,7 +8,7 @@ namespace TravelCompany.Domain.Entity
 
         public int Id { get; set; }
         public int? CountryId { get; set; }
-        public Climate Climate { get; set; }
+        public Climate? Climate { get; set; }
         public string? Name { get; set; }
 
         public virtual Country? Country { get; set; }

@@ -8,10 +8,10 @@ namespace TravelCompanyClient.Models
         [Required]
         public int? CountryId { get; set; }
         [Required]
-        public byte? ClimateId { get; set; }
+        public Climate? Climate { get; set; }
         [Required]
         [MinLength(2)]
         [MaxLength(20)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
