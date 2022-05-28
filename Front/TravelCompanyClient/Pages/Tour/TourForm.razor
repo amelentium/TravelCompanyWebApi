@@ -1,10 +1,10 @@
 ﻿@inject HttpClient _httpClient
 
-@if (hotels == null || durations == null)
+@if (hotels == null)
 {
     <text>Loading...</text>
 }
-else if (hotels.Count == 0 || durations.Count == 0)
+else if (hotels.Count == 0)
 {
     <text>No avaible records found.</text>
 }
@@ -33,15 +33,10 @@ else
                 <InputDate @bind-Value="@tour.StartDate" />
                 <ValidationMessage For="@(() => tour.StartDate)" />
             </div>
-            <label>Duration (Weeks):</label>
+            <label>Duration (Days):</label>
             <div>
-                <InputSelect @bind-Value="@tour.DurationId">
-                    <option></option>
-                    @foreach (var duration in durations)
-                        {
-                        <option value="@duration.Id">@duration.Time</option>
-                        }
-                </InputSelect>
+                <InputNumber @bind-Value="@tour.Duration" />
+                <ValidationMessage For="@(() => tour.Duration)" />
             </div>
             <label>Price:</label>
             <div>
@@ -66,13 +61,11 @@ else
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private List<DurationDTO> durations = new();
     private List<HotelDTO> hotels = new();
 
     protected override async Task OnInitializedAsync()
     {
         hotels = await _httpClient.GetFromJsonAsync<List<HotelDTO>>("https://localhost:44445/Hotels");
-        durations = await _httpClient.GetFromJsonAsync<List<DurationDTO>>("https://localhost:44445/Durations");
     }
 }
 

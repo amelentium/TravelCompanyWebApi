@@ -62,7 +62,10 @@ else
     </table>
 }
 
-@code {
+@code {    
+	[CascadingParameter]
+	public string provider { get; set; }
+
     [Parameter]
     public string Url { get; set; }
 
@@ -77,7 +80,7 @@ else
     {
         try
         {
-            data = await _httpClient.GetFromJsonAsync<TEntity[]>(Url);
+            data = await _httpClient.GetFromJsonAsync<TEntity[]>($"{Url}?provider={provider}");
         }
         catch (Exception e)
         {
@@ -96,7 +99,7 @@ else
         var entity = data.First(x => x.GetType().GetProperty("Id").GetValue(x, null).ToString() == Id);
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete record {entity.GetType().GetProperty("Id").GetValue(entity, null)}?"))
         {
-            await _httpClient.DeleteAsync($"{Url}/{Id}");
+            await _httpClient.DeleteAsync($"{Url}/{Id}?provider={provider}");
             await OnInitializedAsync();
         }
     }

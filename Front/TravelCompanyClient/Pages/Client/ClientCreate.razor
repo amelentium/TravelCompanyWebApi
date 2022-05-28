@@ -5,7 +5,7 @@
 @inject IJSRuntime js
 
 <h3>Create</h3>
-<ClientForm ButtonText="Create" city="@client"
+<ClientForm ButtonText="Create" client="@client"
           OnValidSubmit="@CreateClient" />
 
 @code {
@@ -16,7 +16,7 @@
         var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Clients", client);
         if (response.IsSuccessStatusCode)
         {
-            uriHelper.NavigateTo("сlients");
+            uriHelper.NavigateTo("clients");
         }
         else await js.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
     }

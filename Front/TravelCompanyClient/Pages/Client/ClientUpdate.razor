@@ -5,7 +5,7 @@
 @inject IJSRuntime js
 
 <h3>Update</h3>
-<ClientForm ButtonText="Update" city="@client"
+<ClientForm ButtonText="Update" client="@client"
       OnValidSubmit="@EditClient" />
 
 @code {
@@ -21,10 +21,10 @@
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {client.FirstName}'s ({client.Id}) Record?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Cities/{clientId}", client);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Clients/{clientId}", client);
             if (response.IsSuccessStatusCode)
             {
-                uriHelper.NavigateTo("cities");
+                uriHelper.NavigateTo("clients");
             }
             else
             {

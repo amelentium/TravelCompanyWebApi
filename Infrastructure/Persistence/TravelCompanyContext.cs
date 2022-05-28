@@ -5,6 +5,7 @@ namespace Infrastructure.Persistence
 {
     public partial class TravelCompanyContext : DbContext
     {
+        public TravelCompanyContext() { }
         public TravelCompanyContext(DbContextOptions<TravelCompanyContext> options) : base(options) { }
 
         public virtual DbSet<City> Cities { get; set; }
@@ -20,7 +21,7 @@ namespace Infrastructure.Persistence
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=TravelCompanyDB;Username=postgres;Password=password");
+                optionsBuilder.UseSqlite("Data Source=../MeleniukAndrii444SK.db");
             }
         }
 

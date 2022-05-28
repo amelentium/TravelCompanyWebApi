@@ -24,7 +24,7 @@
             <InputText @bind-Value="@client.Address" />
             <ValidationMessage For="@(() => client.Address)" />
         </div>
-        <label>Last name:</label>
+        <label>Phone number:</label>
         <div>
             <InputText @bind-Value="@client.PhoneNumber" />
             <ValidationMessage For="@(() => client.PhoneNumber)" />
@@ -33,7 +33,7 @@
     <button type="submit" class="btn btn-success">
         @ButtonText
     </button>
-    <a class="btn btn-secondary" href="/cities">Back</a>
+    <a class="btn btn-secondary" href="/clients">Back</a>
 </EditForm>
 
 

@@ -4,12 +4,23 @@
 
 <div class="page">
     <div class="sidebar">
+        <select @bind="provider">
+            <option value="pgsql" selected="selected">Postgresql</option>
+            <option value="mysql">MySql</option>
+            <option value="sqlite">Sqlite</option>
+        </select>
         <NavMenu />
     </div>
 
     <div class="main">
         <div class="content px-4">
-            @Body
+            <CascadingValue Value="@provider">
+                @Body
+            </CascadingValue>
         </div>
     </div>
 </div>
+
+@code {
+    private string provider { get; set; }
+}

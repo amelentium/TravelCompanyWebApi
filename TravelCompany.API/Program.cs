@@ -1,18 +1,15 @@
 using FluentValidation.AspNetCore;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TravelCompany.Application.Factories;
 using TravelCompany.Application.Mapper;
 using TravelCompany.Application.Service;
 using TravelCompany.Application.Service.Interface;
 using TravelCompany.Application.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+builder.Services.AddSingleton<IConfiguration>(configuration);
 
-builder.Services.AddDbContext<TravelCompanyContext>(options =>
-{
-	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
-});
 
 builder.Services.AddControllers().AddFluentValidation(s =>
 {
@@ -23,6 +20,8 @@ builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(TravelCompanyMapper))
 
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+builder.Services.AddTransient<IRequestProviderService, RequestProviderService>();
+builder.Services.AddTransient<DBContextFactory>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

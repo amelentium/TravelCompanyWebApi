@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using TravelCompany.Application.Factories;
 using TravelCompany.Application.Service.Interface;
 
 namespace TravelCompany.Application.Service
 {
 	public class GenericService<TEntity> : GenericService<TEntity, int>, IGenericService<TEntity> where TEntity : class
 	{
-		public GenericService(TravelCompanyContext context) : base(context) { }
+		public GenericService(DBContextFactory contextFactory) : base(contextFactory) { }
 	}
 
 	public class GenericService<TEntity, TId> : IGenericService<TEntity, TId> where TEntity : class where TId : IEquatable<TId>
@@ -14,10 +15,10 @@ namespace TravelCompany.Application.Service
 		private readonly TravelCompanyContext _context;
 		private readonly DbSet<TEntity> _set;
 
-		public GenericService(TravelCompanyContext context)
+		public GenericService(DBContextFactory contextFactory)
 		{
-			_context = context;
-			_set = context.Set<TEntity>();
+			_context = contextFactory.GetContext();
+			_set = _context.Set<TEntity>();
 		}
 
 		public async Task AddAsync(TEntity entity)
