@@ -9,11 +9,13 @@
              OnValidSubmit="@CreateCountry" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     CountryDTO country = new CountryDTO();
 
     async Task CreateCountry()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Countries", country);
+        var response = await _httpClient.PostAsJsonAsync($"https://localhost:44445/Countries?provider={provider}", country);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("countries");

@@ -8,11 +8,13 @@
            OnValidSubmit="@CreateHotel" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     HotelDTO hotel = new HotelDTO();
 
     async Task CreateHotel()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44445/Hotels", hotel);
+        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Hotels?provider={provider}", hotel);
         uriHelper.NavigateTo("hotels");
     }
 }

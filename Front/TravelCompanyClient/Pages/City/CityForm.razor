@@ -48,6 +48,8 @@ else
 }
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public CityDTO city { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
@@ -56,6 +58,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>("https://localhost:44445/Countries");
+        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>($"https://localhost:44445/Countries?provider={provider}");
     }
 }

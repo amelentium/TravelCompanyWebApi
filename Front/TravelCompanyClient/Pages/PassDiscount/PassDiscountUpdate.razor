@@ -9,19 +9,21 @@
            OnValidSubmit="@EditPassDiscount" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int passdiscountId { get; set; }
     PassDiscountDTO passdiscount = new PassDiscountDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        passdiscount = await _httpClient.GetFromJsonAsync<PassDiscountDTO>($"https://localhost:44445/PassDiscounts/{passdiscountId}");
+        passdiscount = await _httpClient.GetFromJsonAsync<PassDiscountDTO>($"https://localhost:44445/PassDiscounts/{passdiscountId}?provider={provider}");
     }
 
     async Task EditPassDiscount()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {passdiscount.Id}?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/PassDiscounts/{passdiscountId}", passdiscount);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/PassDiscounts/{passdiscountId}?provider={provider}", passdiscount);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("passdiscounts");

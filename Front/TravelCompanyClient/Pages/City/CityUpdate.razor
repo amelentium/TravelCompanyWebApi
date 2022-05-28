@@ -9,19 +9,21 @@
       OnValidSubmit="@EditCity" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int cityId { get; set; }
     CityDTO city = new CityDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44445/Cities/{cityId}");
+        city = await _httpClient.GetFromJsonAsync<CityDTO>($"https://localhost:44445/Cities/{cityId}?provider={provider}");
     }
 
     async Task EditCity()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {city.Name}'s ({city.Id}) Record?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Cities/{cityId}", city);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Cities/{cityId}?provider={provider}", city);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("cities");

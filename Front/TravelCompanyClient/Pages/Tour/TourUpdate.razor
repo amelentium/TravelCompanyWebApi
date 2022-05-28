@@ -9,19 +9,21 @@
            OnValidSubmit="@EditTour" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int tourId { get; set; }
     TourDTO tour = new TourDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        tour = await _httpClient.GetFromJsonAsync<TourDTO>($"https://localhost:44445/Tours/{tourId}");
+        tour = await _httpClient.GetFromJsonAsync<TourDTO>($"https://localhost:44445/Tours/{tourId}?provider={provider}");
     }
 
     async Task EditTour()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {tour.Id}?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Tours/{tourId}", tour);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Tours/{tourId}?provider={provider}", tour);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("tours");

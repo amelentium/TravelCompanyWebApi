@@ -42,6 +42,8 @@ else
 }
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public PassDiscountDTO passdiscount { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
@@ -51,8 +53,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        discounts = await _httpClient.GetFromJsonAsync<List<DiscountDTO>>("https://localhost:44445/Discounts");
-        passes = await _httpClient.GetFromJsonAsync<List<PassOutputDTO>>("https://localhost:44445/Passes");
+        discounts = await _httpClient.GetFromJsonAsync<List<DiscountDTO>>($"https://localhost:44445/Discounts?provider={provider}");
+        passes = await _httpClient.GetFromJsonAsync<List<PassOutputDTO>>($"https://localhost:44445/Passes?provider={provider}");
     }
 }
 

@@ -8,11 +8,13 @@
               OnValidSubmit="@CreateDiscount" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     DiscountDTO discount = new DiscountDTO();
 
     async Task CreateDiscount()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44445/Discounts", discount);
+        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Discounts?provider={provider}", discount);
         uriHelper.NavigateTo("discounts");
     }
 }

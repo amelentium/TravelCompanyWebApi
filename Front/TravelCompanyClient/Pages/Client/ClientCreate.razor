@@ -9,11 +9,13 @@
           OnValidSubmit="@CreateClient" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     ClientDTO client = new ClientDTO();
 
     async Task CreateClient()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Clients", client);
+        var response = await _httpClient.PostAsJsonAsync($"https://localhost:44445/Clients?provider={provider}", client);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("clients");

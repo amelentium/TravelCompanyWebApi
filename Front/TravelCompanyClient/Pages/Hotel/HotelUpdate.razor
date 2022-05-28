@@ -9,19 +9,21 @@
       OnValidSubmit="@EditHotel" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int hotelId { get; set; }
     HotelDTO hotel = new HotelDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        hotel = await _httpClient.GetFromJsonAsync<HotelDTO>($"https://localhost:44445/Hotels/{hotelId}");
+        hotel = await _httpClient.GetFromJsonAsync<HotelDTO>($"https://localhost:44445/Hotels/{hotelId}?provider={provider}");
     }
 
     async Task EditHotel()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {hotel.Name}'s ({hotel.Id}) Record?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Hotels/{hotelId}", hotel);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Hotels/{hotelId}?provider={provider}", hotel);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("hotels");

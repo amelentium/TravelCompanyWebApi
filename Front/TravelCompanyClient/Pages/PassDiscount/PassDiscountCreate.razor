@@ -8,11 +8,13 @@
                   OnValidSubmit="@CreatePassDiscount" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     PassDiscountDTO passdiscount = new PassDiscountDTO();
 
     async Task CreatePassDiscount()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44445/PassDiscounts", passdiscount);
+        await _httpClient.PostAsJsonAsync($"https://localhost:44445/PassDiscounts?provider={provider}", passdiscount);
         uriHelper.NavigateTo("passdiscounts");
     }
 }

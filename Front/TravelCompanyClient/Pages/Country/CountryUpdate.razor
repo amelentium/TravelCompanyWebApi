@@ -9,19 +9,21 @@
       OnValidSubmit="@EditCountry" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int countryId { get; set; }
     CountryDTO country = new CountryDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        country = await _httpClient.GetFromJsonAsync<CountryDTO>($"https://localhost:44445/Countries/{countryId}");
+        country = await _httpClient.GetFromJsonAsync<CountryDTO>($"https://localhost:44445/Countries/{countryId}?provider={provider}");
     }
 
     async Task EditCountry()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {country.Name}'s ({country.Id}) Record?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Countries/{countryId}", country);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Countries/{countryId}?provider={provider}", country);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("countries");

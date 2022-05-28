@@ -9,19 +9,21 @@
       OnValidSubmit="@EditClient" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int clientId { get; set; }
     ClientDTO client = new ClientDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        client = await _httpClient.GetFromJsonAsync<ClientDTO>($"https://localhost:44445/Clients/{clientId}");
+        client = await _httpClient.GetFromJsonAsync<ClientDTO>($"https://localhost:44445/Clients/{clientId}?provider={provider}");
     }
 
     async Task EditClient()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update {client.FirstName}'s ({client.Id}) Record?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Clients/{clientId}", client);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Clients/{clientId}?provider={provider}", client);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("clients");

@@ -8,11 +8,13 @@
           OnValidSubmit="@CreateTour" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     TourDTO tour = new TourDTO();
 
     async Task CreateTour()
     {
-        await _httpClient.PostAsJsonAsync("https://localhost:44445/Tours", tour);
+        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Tours?provider={provider}", tour);
         uriHelper.NavigateTo("tours");
     }
 }

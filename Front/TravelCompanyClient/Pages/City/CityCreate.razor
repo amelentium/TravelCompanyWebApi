@@ -9,11 +9,13 @@
           OnValidSubmit="@CreateCity" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     CityDTO city = new CityDTO();
 
     async Task CreateCity()
     {
-        var response = await _httpClient.PostAsJsonAsync("https://localhost:44445/Cities", city);
+        var response = await _httpClient.PostAsJsonAsync($"https://localhost:44445/Cities?provider={provider}", city);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("cities");

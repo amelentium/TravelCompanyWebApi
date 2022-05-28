@@ -9,19 +9,21 @@
            OnValidSubmit="@EditPass" />
 
 @code {
+	[CascadingParameter]
+	public string provider { get; set; }
     [Parameter] public int passId { get; set; }
     PassInputDTO pass = new PassInputDTO();
 
     protected async override Task OnParametersSetAsync()
     {
-        pass = await _httpClient.GetFromJsonAsync<PassInputDTO>($"https://localhost:44445/Passes/{passId}");
+        pass = await _httpClient.GetFromJsonAsync<PassInputDTO>($"https://localhost:44445/Passes/{passId}?provider={provider}");
     }
 
     async Task EditPass()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {pass.Id}?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Passes/{passId}", pass);
+            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Passes/{passId}?provider={provider}", pass);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("passes");
