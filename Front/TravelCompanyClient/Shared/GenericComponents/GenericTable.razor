@@ -1,8 +1,11 @@
 ﻿@typeparam TEntity
 
+@implements IDisposable
+
 @inject HttpClient _httpClient
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
+@inject ProviderRefreshService _providerRefresh
 
 <h3>@typeof(TEntity).Name.Replace("DTO", "").Replace("Output", "")</h3>
 <div class="form-group">
@@ -63,8 +66,8 @@ else
 }
 
 @code {
-	[CascadingParameter]
-	public string provider { get; set; }
+    [CascadingParameter]
+    public string provider { get; set; }
 
     [Parameter]
     public string Url { get; set; }
@@ -78,6 +81,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        _providerRefresh.RefreshRequested += Refresh;
+
+        await LoadData();
+    }
+
+    async Task LoadData()
+    {
+        loading = true;
+        data = null;
+
         try
         {
             data = await _httpClient.GetFromJsonAsync<TEntity[]>($"{Url}?provider={provider}");
@@ -91,7 +104,8 @@ else
         finally 
         {
             loading = false;
-        }
+            StateHasChanged();
+        }        
     }
 
     async Task Delete(string Id)
@@ -102,5 +116,16 @@ else
             await _httpClient.DeleteAsync($"{Url}/{Id}?provider={provider}");
             await OnInitializedAsync();
         }
+    }
+
+    async void Refresh()
+    {
+        StateHasChanged();
+        await LoadData();
+    }
+
+    public void Dispose()
+    {
+        _providerRefresh.RefreshRequested -= Refresh;
     }
 }

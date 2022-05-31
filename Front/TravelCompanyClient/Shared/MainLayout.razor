@@ -1,10 +1,12 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Threading
+@inherits LayoutComponentBase
 @inject HttpClient _httpClient
 @inject IJSRuntime js
+@inject ProviderRefreshService _providerRefresh
 
 <div class="page">
     <div class="sidebar">
-        <select @bind="provider">
+        <select @onchange="ProviderChange">
             <option value="pgsql" selected="selected">Postgresql</option>
             <option value="mysql">MySql</option>
             <option value="sqlite">Sqlite</option>
@@ -23,4 +25,10 @@
 
 @code {
     private string provider { get; set; } = "pgsql";
+
+    private void ProviderChange(ChangeEventArgs eventArgs) 
+    {
+        provider = eventArgs.Value.ToString();
+        _providerRefresh.CallRequestRefresh();
+    }
 }
