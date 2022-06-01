@@ -14,7 +14,7 @@
 
     async Task CreateHotel()
     {
-        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Hotels?provider={provider}", hotel);
+        await _httpClient.PostAsJsonAsync(string.Format(provider, "Hotels"), hotel);
         uriHelper.NavigateTo("hotels");
     }
 }

@@ -52,6 +52,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        cities = await _httpClient.GetFromJsonAsync<List<CityDTO>>($"https://localhost:44445/Cities?provider={provider}");
+        cities = await _httpClient.GetFromJsonAsync<List<CityDTO>>(string.Format(provider, "Cities"));
     }
 }

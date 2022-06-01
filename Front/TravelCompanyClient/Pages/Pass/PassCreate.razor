@@ -14,7 +14,7 @@
 
     async Task CreatePass()
     {
-        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Passes?provider={provider}", pass);
+        await _httpClient.PostAsJsonAsync(string.Format(provider, "Passes"), pass);
         uriHelper.NavigateTo("passes");
     }
 }

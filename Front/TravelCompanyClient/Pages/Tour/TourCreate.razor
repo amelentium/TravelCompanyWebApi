@@ -14,7 +14,7 @@
 
     async Task CreateTour()
     {
-        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Tours?provider={provider}", tour);
+        await _httpClient.PostAsJsonAsync(string.Format(provider, "Tours"), tour);
         uriHelper.NavigateTo("tours");
     }
 }

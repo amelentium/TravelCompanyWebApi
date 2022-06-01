@@ -67,7 +67,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        hotels = await _httpClient.GetFromJsonAsync<List<HotelDTO>>($"https://localhost:44445/Hotels?provider={provider}");
+        hotels = await _httpClient.GetFromJsonAsync<List<HotelDTO>>(string.Format(provider, "Hotels"));
     }
 }
 

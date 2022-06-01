@@ -16,14 +16,14 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        tour = await _httpClient.GetFromJsonAsync<TourDTO>($"https://localhost:44445/Tours/{tourId}?provider={provider}");
+        tour = await _httpClient.GetFromJsonAsync<TourDTO>(string.Format(provider, $"Tours/{tourId}"));
     }
 
     async Task EditTour()
     {
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to update record {tour.Id}?"))
         {
-            var response = await _httpClient.PutAsJsonAsync($"https://localhost:44445/Tours/{tourId}?provider={provider}", tour);
+            var response = await _httpClient.PutAsJsonAsync(string.Format(provider, $"Tours/{tourId}"), tour);
             if (response.IsSuccessStatusCode)
             {
                 uriHelper.NavigateTo("tours");

@@ -7,9 +7,8 @@
 <div class="page">
     <div class="sidebar">
         <select @onchange="ProviderChange">
-            <option value="pgsql" selected="selected">Postgresql</option>
-            <option value="mysql">MySql</option>
-            <option value="sqlite">Sqlite</option>
+            <option value="http://localhost:44444/server.php/{0}">Php</option>
+            <option value="http://localhost:44445/{0}" selected="selected">Node</option>
         </select>
         <NavMenu />
     </div>
@@ -24,7 +23,7 @@
 </div>
 
 @code {
-    private string provider { get; set; } = "pgsql";
+    private string provider { get; set; } = "http://localhost:44445/{0}";
 
     private void ProviderChange(ChangeEventArgs eventArgs) 
     {

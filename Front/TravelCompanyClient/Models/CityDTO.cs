@@ -8,7 +8,7 @@ namespace TravelCompanyClient.Models
         [Required]
         public int? CountryId { get; set; }
         [Required]
-        public Climate? Climate { get; set; }
+        public string? Climate { get; set; }
         [Required]
         [MinLength(2)]
         [MaxLength(20)]

@@ -58,6 +58,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>($"https://localhost:44445/Countries?provider={provider}");
+        countries = await _httpClient.GetFromJsonAsync<List<CountryDTO>>(string.Format(provider, "Countries"));
     }
 }

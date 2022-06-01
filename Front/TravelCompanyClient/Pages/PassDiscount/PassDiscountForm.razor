@@ -53,8 +53,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        discounts = await _httpClient.GetFromJsonAsync<List<DiscountDTO>>($"https://localhost:44445/Discounts?provider={provider}");
-        passes = await _httpClient.GetFromJsonAsync<List<PassOutputDTO>>($"https://localhost:44445/Passes?provider={provider}");
+        discounts = await _httpClient.GetFromJsonAsync<List<DiscountDTO>>(string.Format(provider, "Discounts"));
+        passes = await _httpClient.GetFromJsonAsync<List<PassOutputDTO>>(string.Format(provider, "Passes"));
     }
 }
 

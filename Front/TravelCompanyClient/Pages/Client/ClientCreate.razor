@@ -15,7 +15,7 @@
 
     async Task CreateClient()
     {
-        var response = await _httpClient.PostAsJsonAsync($"https://localhost:44445/Clients?provider={provider}", client);
+        var response = await _httpClient.PostAsJsonAsync(string.Format(provider, "Clients"), client);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("clients");

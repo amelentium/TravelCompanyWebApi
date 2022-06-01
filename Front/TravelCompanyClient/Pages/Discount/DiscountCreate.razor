@@ -14,7 +14,7 @@
 
     async Task CreateDiscount()
     {
-        await _httpClient.PostAsJsonAsync($"https://localhost:44445/Discounts?provider={provider}", discount);
+        await _httpClient.PostAsJsonAsync(string.Format(provider, "Discounts"), discount);
         uriHelper.NavigateTo("discounts");
     }
 }

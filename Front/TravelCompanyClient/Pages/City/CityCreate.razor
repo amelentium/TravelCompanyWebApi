@@ -15,7 +15,7 @@
 
     async Task CreateCity()
     {
-        var response = await _httpClient.PostAsJsonAsync($"https://localhost:44445/Cities?provider={provider}", city);
+        var response = await _httpClient.PostAsJsonAsync(string.Format(provider, "Cities"), city);
         if (response.IsSuccessStatusCode)
         {
             uriHelper.NavigateTo("cities");
